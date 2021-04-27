@@ -1,0 +1,54 @@
+||CLASES||
+*             //No permitir velocidad ni marchas negativas.
+--------------------------------------------------------------------------------------------------------------------------------
+CLASE Coche
+
+ Atributos:
+  String matricula
+  double velocidad
+  int marcha
+
+ Constructor: Coche(String matricula): inicializamos velocidad = 0 y marcha = 0
+ 
+ Métodos:
+  Getters
+  acelerar(double acel): recibe valor para acelerar
+  frenar(double fren): recibe valor para frenar
+  String toString(): devuelve string con info del objeto coche
+  protected cambiaMarcha(int marcha): cambia marcha a la pasada por parámetro
+--------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------
+ CLASE CocheCambioManual Hereda de: Coche
+  
+  Atributos:
+   
+   
+  Métodos:
+   public cambiaMarcha() //Sobreescribimos metodo haciendolo esta vez publico
+                         //No permitir cambio a marcha negativa
+--------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------
+ CLASE CocheCambioAutomatico Hereda de: Coche
+ 
+  Atributos:
+   
+  
+  Constructor: 
+
+
+  Métodos:
+   acelerar(double acel): //Sobreescribimos metodo para que cambie de marcha automaticamente segun vamos acelerando
+   frenar(double fren): // Sobreescribimos metodo para que cambie de marcha automaticamente segun vamos frenando
+--------------------------------------------------------------------------------------------------------------------------------
+*
+
+||APP MAIN 1|| )
+--------------------------------------------------------------------------------------------------------------------------------
+1- Pide por teclado matricula de un Coche y CambioCoche es automatico o no.
+2- Crear Coche con caracteristicas indicadas y mostrarlo.
+3- Acelerar el coche en 60 km/h, si es un coche con cambio manual, cambiar la marcha a tercera y volverlo a mostrar.
+/*Lo configuré para que al acelerar y al frenar fuera subendo o bajando la velocidad en 10, 
+no hice exactamente el ejercicio como lo pedia, de hecho lo hice más completo.*/
+
