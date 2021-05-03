@@ -1,3 +1,5 @@
+package poo;
+
 import java.util.*;
 
 public class Uso_Empleado {
@@ -15,8 +17,8 @@ public class Uso_Empleado {
 		misEmpleados[1] = new Empleado("Carlos", 50000, 1995, 06, 15);
 		misEmpleados[2] = new Empleado("Paco", 25000, 2005, 9, 25);
 		misEmpleados[3] = new Empleado("Antonio", 47500, 2009, 11, 9);
-		misEmpleados[4] = jefe_RRHH; //Polimorfismo en acciÃ³n. principio de sustituciÃ³n.
-		misEmpleados[5] = new Jefatura("MarÃ­a", 95000, 1999, 5, 26);
+		misEmpleados[4] = jefe_RRHH; //Polimorfismo en acción. principio de sustitución.
+		misEmpleados[5] = new Jefatura("María", 95000, 1999, 5, 26);
 		
 		Jefatura jefa_Finanzas=(Jefatura) misEmpleados[5];
 		jefa_Finanzas.estableceIncentivo(55000);
@@ -27,6 +29,9 @@ public class Uso_Empleado {
 			e.subeSueldo(5);
 		}
 
+		Arrays.sort(misEmpleados);
+		
+		
 		for (Empleado e : misEmpleados) {
 			System.out.println("Nombre: " +e.dameNombre() 
 			        + " Sueldo: " + e.dameSueldo() 
@@ -37,7 +42,7 @@ public class Uso_Empleado {
 
 }
 
-class Empleado {
+class Empleado implements Comparable<Object> {
 
 	private String nombre;
 	private double sueldo;
@@ -75,6 +80,21 @@ class Empleado {
 	public void subeSueldo(double porcentaje) {
 		double aumento = sueldo * porcentaje / 100;
 		sueldo += aumento;
+	}
+
+	@Override
+	public int compareTo(Object miObjeto) {
+		Empleado otroEmpleado=(Empleado)miObjeto;
+		
+		if(this.Id<otroEmpleado.Id) {
+			return -1;
+		}
+		
+		if(this.Id>otroEmpleado.Id) {
+			return 1;
+		}
+		
+			return 0;			
 	}
 
 }
