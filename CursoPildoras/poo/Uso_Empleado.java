@@ -1,5 +1,3 @@
-package poo;
-
 import java.util.*;
 
 public class Uso_Empleado {
