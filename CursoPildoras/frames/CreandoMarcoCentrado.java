@@ -1,12 +1,13 @@
+import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
+
 import java.awt.*;
 import javax.swing.*;
 
 public class CreandoMarcoCentrado {
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		MarcoCentrado marco2=new MarcoCentrado();
 		marco2.setVisible(true);
-		marco2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		marco2.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 	}
 
