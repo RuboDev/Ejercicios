@@ -49,3 +49,7 @@ composer.lock
 # BAT files #
 #############
 *.bat
+
+# VScode files #
+################
+.vscode
