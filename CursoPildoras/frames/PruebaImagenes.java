@@ -17,30 +17,43 @@ class MarcoImagen extends JFrame {
         setBounds(750, 300, 640, 450);
         LaminaImagen milamina = new LaminaImagen();
         add(milamina);
-        setResizable(false);
+        setResizable(true);
 
         Toolkit mipantalla = Toolkit.getDefaultToolkit();
-        setIconImage(mipantalla.getImage("CursoPildoras/resources/iconos/icono.png"));// Setea icono con imagen de la
-                                                                                      // ruta especificada
+        setIconImage(mipantalla.getImage("Ejercicios/CursoPildoras/resources/iconos/icono.png"));// Setea icono con la imagen de la ruta especificada
     }
 }
 
 class LaminaImagen extends JPanel {
     private Image miImagen;
 
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-
-        // File archivo = new File("CursoPildoras/resources/coche.png");
-
+    public LaminaImagen() {
         try {
-            miImagen = ImageIO.read(new File("CursoPildoras/resources/img/coche.png"));// Lee archivo de la ruta
-                                                                                       // especificada
+            // File archivo = new File("CursoPildoras/resources/coche.png");
+            miImagen = ImageIO.read(new File("Ejercicios/CursoPildoras/resources/img/bola.jpg"));// Lee el archivo de la ruta especificada
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("La imagen no se encuentra");
         }
+    }
+
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
 
         g.drawImage(miImagen, 0, 0, null);// Dibuja imagen en la lamina
+
+        int anchuraImagen = miImagen.getWidth(this);
+        int alturaImagen = miImagen.getHeight(this);
+
+        for (int i = 0; i < 150; i++) {
+
+            for (int j = 0; j < 100; j++) {
+                if(i+j>0){
+                    g.copyArea(0, 0, anchuraImagen, alturaImagen, anchuraImagen * i, alturaImagen * j);
+                }
+                
+            }
+        }
+
     }
 }
