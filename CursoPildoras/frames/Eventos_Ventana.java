@@ -1,6 +1,4 @@
 import javax.swing.*;
-
-import java.awt.Toolkit;
 import java.awt.event.*;
 
 public class Eventos_Ventana {
@@ -23,12 +21,15 @@ class MarcoVentana extends JFrame {
         // setBounds(300, 300, 500, 350);
         setVisible(true);
 
-        M_Ventana oyente = new M_Ventana();
-        addWindowListener(oyente);
+        /*
+         * M_Ventana oyente = new M_Ventana(); addWindowListener(oyente);
+         */
+        addWindowListener(new M_Ventana());
     }
 }
 
-class M_Ventana implements WindowListener {
+// class M_Ventana implements WindowListener {
+class M_Ventana extends WindowAdapter {
     private static int cont = 0;
     private final int id;
 
@@ -37,40 +38,31 @@ class M_Ventana implements WindowListener {
         this.id = cont;
     }
 
-    @Override
-    public void windowOpened(WindowEvent e) {
-        System.out.println("Ventana " + id + " abierta");
-    }
-
-    @Override
-    public void windowClosing(WindowEvent e) {
-        System.out.println("Cerrando ventana " + id + "...");
-    }
-
-    @Override
-    public void windowClosed(WindowEvent e) {
-        System.out.println("La ventana " + id + " ha sido cerrada");
-    }
+    /*
+     * @Override public void windowOpened(WindowEvent e) {
+     * System.out.println("Ventana " + id + " abierta"); }
+     * 
+     * @Override public void windowClosing(WindowEvent e) {
+     * System.out.println("Cerrando ventana " + id + "..."); }
+     * 
+     * @Override public void windowClosed(WindowEvent e) {
+     * System.out.println("La ventana " + id + " ha sido cerrada"); }
+     */
 
     @Override
     public void windowIconified(WindowEvent e) {
         System.out.println("Ventana " + id + " Minimizada");
-        Toolkit.getDefaultToolkit().beep();
     }
 
-    @Override
-    public void windowDeiconified(WindowEvent e) {
-        System.out.println("Ventana " + id + " restaurada");
-    }
-
-    @Override
-    public void windowActivated(WindowEvent e) {
-        System.out.println("Ventana " + id + " activada");
-    }
-
-    @Override
-    public void windowDeactivated(WindowEvent e) {
-        System.out.println("Ventana " + id + " desactivada");
-    }
+    /*
+     * @Override public void windowDeiconified(WindowEvent e) {
+     * System.out.println("Ventana " + id + " restaurada"); }
+     * 
+     * @Override public void windowActivated(WindowEvent e) {
+     * System.out.println("Ventana " + id + " activada"); }
+     * 
+     * @Override public void windowDeactivated(WindowEvent e) {
+     * System.out.println("Ventana " + id + " desactivada"); }
+     */
 
 }
