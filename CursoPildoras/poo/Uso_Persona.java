@@ -1,14 +1,15 @@
+package Ejercicios.CursoPildoras.poo;
+
 import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class Uso_Persona {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
 		Persona[] lasPersonas=new Persona[2];
 		lasPersonas[0]=new Empleado2("Luis Conde", 50000, 2009, 02, 25);
-		lasPersonas[1]=new Alumno("Ana López", "Biológicas");
+		lasPersonas[1]=new Alumno("Ana Lï¿½pez", "Biolï¿½gicas");
 		
 		for(Persona p: lasPersonas) {
 			System.out.println(p.dameNombre() +", "+p.dameDescripcion());
@@ -83,7 +84,7 @@ class Alumno extends Persona{
 	
 	
 	public String dameDescripcion() {
-		return "Este alumno está estudiando la carrera de: " + carrera;
+		return "Este alumno estï¿½ estudiando la carrera de: " + carrera;
 		
 	}
 }

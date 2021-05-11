@@ -1,3 +1,5 @@
+package Ejercicios.CursoPildoras.poo;
+
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
@@ -8,7 +10,6 @@ import java.util.Date;
 public class PruebaTemporizador {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
 		DameLaHora oyente=new DameLaHora();
 		

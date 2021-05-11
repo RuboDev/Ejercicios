@@ -1,3 +1,5 @@
+package Ejercicios.CursoPildoras.poo;
+
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.*;
@@ -7,7 +9,6 @@ import java.awt.Toolkit;
 public class PruebaTemporizador2 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
 		Reloj mireloj=new Reloj();
 		mireloj.enMarcha(3000, true);
