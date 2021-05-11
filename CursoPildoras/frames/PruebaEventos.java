@@ -45,22 +45,6 @@ class LaminaBotones extends JPanel {
         btnAmarillo.addActionListener(amarillo);
     }
 
-    public void actionPerformed(ActionEvent e) {
-
-        if (e.getSource() == btnAzul) {
-            setBackground(Color.BLUE);
-        }
-
-        if (e.getSource() == btnRojo) {
-            setBackground(Color.RED);
-        }
-
-        if (e.getSource() == btnAmarillo) {
-            setBackground(Color.YELLOW);
-        }
-
-    }
-
     private class ColorFondo implements ActionListener {
         private Color colorDeFondo;
 
@@ -72,6 +56,8 @@ class LaminaBotones extends JPanel {
         public void actionPerformed(ActionEvent e) {
             setBackground(colorDeFondo);
         }
-
     }
-}
+    }
+
+    
+
