@@ -14,43 +14,18 @@ class MarcoRaton extends JFrame {
         setBounds(700, 300, 600, 450);
         setVisible(true);
         EventosDeRaton eventoRaton = new EventosDeRaton();
-        addMouseListener(eventoRaton);
+        addMouseMotionListener(eventoRaton);
     }
 }
 
-/*
- * class EventosDeRaton implements MouseListener{
- * 
- * @Override public void mouseClicked(MouseEvent e) {
- * System.out.println("has hecho click"); }
- * 
- * @Override public void mousePressed(MouseEvent e) {
- * System.out.println("acabas de presionar"); }
- * 
- * @Override public void mouseReleased(MouseEvent e) {
- * System.out.println("acabas de levantar"); }
- * 
- * @Override public void mouseEntered(MouseEvent e) {
- * System.out.println("Acabas de entrar"); }
- * 
- * @Override public void mouseExited(MouseEvent e) {
- * System.out.println("Acabas de salir"); } }
- */
+class EventosDeRaton implements MouseMotionListener {
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        System.out.println("Estas arrastrando");
+    }
 
-class EventosDeRaton extends MouseAdapter {
-    /*
-     * public void mouseClicked(MouseEvent e) {
-     * System.out.println("has hecho click");
-     * //System.out.println("x: "+e.getX()+", y: "+e.getY());
-     * System.out.println(e.getClickCount()); }
-     */
-    public void mousePressed(MouseEvent e) {
-        if (e.getModifiersEx() == MouseEvent.BUTTON1_DOWN_MASK) {
-            System.out.println("Has pulsado Boton Izq.");
-        } else if (e.getModifiersEx() == MouseEvent.BUTTON3_DOWN_MASK) {
-            System.out.println("Has pulsado Boton Der.");
-        } else if (e.getModifiersEx() == MouseEvent.BUTTON2_DOWN_MASK) {
-            System.out.println("Has pulsado Rueda");
-        }
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        System.out.println("Estas moviendo");
     }
 }
