@@ -38,7 +38,19 @@ class MarcoRaton extends JFrame {
  */
 
 class EventosDeRaton extends MouseAdapter {
-    public void mouseClicked(MouseEvent e) {
-        System.out.println("has hecho click");
+    /*
+     * public void mouseClicked(MouseEvent e) {
+     * System.out.println("has hecho click");
+     * //System.out.println("x: "+e.getX()+", y: "+e.getY());
+     * System.out.println(e.getClickCount()); }
+     */
+    public void mousePressed(MouseEvent e) {
+        if (e.getModifiersEx() == MouseEvent.BUTTON1_DOWN_MASK) {
+            System.out.println("Has pulsado Boton Izq.");
+        } else if (e.getModifiersEx() == MouseEvent.BUTTON3_DOWN_MASK) {
+            System.out.println("Has pulsado Boton Der.");
+        } else if (e.getModifiersEx() == MouseEvent.BUTTON2_DOWN_MASK) {
+            System.out.println("Has pulsado Rueda");
+        }
     }
 }
