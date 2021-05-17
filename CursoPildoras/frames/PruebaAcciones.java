@@ -32,16 +32,36 @@ class PanelAccion extends JPanel {
         add(new JButton(accionAzul));
         add(new JButton(accionRojo));
 
-        /* No hace falta instanciarlo así:
-         * JButton botonAmarillo = new JButton(accionAmarillo); JButton bontonAzul = new
-         * JButton(accionAzul); JButton botonRojo
-         */
         /*
-         * JButton botonAmarillo = new JButton("Amarillo"); JButton botonAzul = new
-         * JButton("Azul"); JButton botonRojo = new JButton("Rojo");
+         * Atajos de teclado:
          * 
-         * add(botonAmarillo); add(botonAzul); add(botonRojo);
+         * ActionMap - method getActionMap() asign the ActionMap that determines what
+         * action fire for each particular key
          */
+        ActionMap mapaAccion = getActionMap();
+        /*
+         * put actions to the ActionMap below in (key, action) format, adding a binding
+         * for key to action (vincula la clave a una accion)
+         */
+        mapaAccion.put("fondo_Amarillo", accionAmarillo);
+        mapaAccion.put("fondo_Azul", accionAzul);
+        mapaAccion.put("fondo_Rojo", accionRojo);
+
+        /*
+         * InputMap - lo que devuelve el metodo getInputMap se asigna a la variable de
+         * tipo InputMap. getInputMap - devuelve el inputMap usado mientras se cumple la
+         * condicion de estar en la ventana focuseada
+         */
+        InputMap mapaEntrada = getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        /*
+         * los siguientes puts agregan un vinuclo para cada stroke hacia un elemento de
+         * ActionMap, determinando qué elemento por la clave (o key) del elemento.
+         * Vinculo keyStroke - key(de un elemento de ActionMap)
+         */
+        mapaEntrada.put(KeyStroke.getKeyStroke("ctrl A"), "fondo_Amarillo");
+        mapaEntrada.put(KeyStroke.getKeyStroke("ctrl T"), "fondo_Amarillo");
+        mapaEntrada.put(KeyStroke.getKeyStroke("ctrl B"), "fondo_Azul");
+        mapaEntrada.put(KeyStroke.getKeyStroke("ctrl R"), "fondo_Rojo");
     }
 
     private class AccionColor extends AbstractAction {
@@ -58,9 +78,8 @@ class PanelAccion extends JPanel {
             Color c = (Color) getValue("Color_de_fondo");
             setBackground(c);
 
-            System.out.println("Nombre: " + getValue(Action.NAME) + "\nDescripcion: " + getValue(Action.SHORT_DESCRIPTION));
+            System.out.println(
+                    "Nombre: " + getValue(Action.NAME) + "\nDescripcion: " + getValue(Action.SHORT_DESCRIPTION));
         }
-
     }
-
 }
