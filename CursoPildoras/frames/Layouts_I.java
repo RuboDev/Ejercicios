@@ -13,17 +13,31 @@ class Marco_Layout extends JFrame {
     public Marco_Layout() {
         setTitle("Layouts I");
         setBounds(600, 350, 600, 300);
+
         Panel_Layout lamina = new Panel_Layout();
-        // FlowLayout disposicion = new FlowLayout(FlowLayout.CENTER);
-        lamina.setLayout(new FlowLayout(FlowLayout.LEFT));
-        add(lamina);
+        Panel_Layout2 lamina2 = new Panel_Layout2();
+        add(lamina, BorderLayout.NORTH);
+        add(lamina2, BorderLayout.SOUTH);
     }
 }
 
 class Panel_Layout extends JPanel {
     public Panel_Layout() {
+        // FlowLayout disposicion = new FlowLayout(FlowLayout.CENTER);
+        // setLayout(new FlowLayout(FlowLayout.CENTER, 100, 100));
+        setLayout(new FlowLayout(FlowLayout.LEFT));
+
         add(new JButton("Amarillo"));
         add(new JButton("Rojo"));
-        add(new JButton("Azul"));
+    }
+}
+
+class Panel_Layout2 extends JPanel {
+    public Panel_Layout2() {
+        setLayout(new BorderLayout());
+
+        add(new JButton("Azul"), BorderLayout.WEST);
+        add(new JButton("Verde"), BorderLayout.EAST);
+        add(new JButton("Negro"), BorderLayout.CENTER);
     }
 }
