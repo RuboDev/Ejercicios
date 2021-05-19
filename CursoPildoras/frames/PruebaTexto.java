@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.DuplicateFormatFlagsException;
 
 public class PruebaTexto {
     public static void main(String[] args) {
