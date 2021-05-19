@@ -24,10 +24,14 @@ class Panel_Principal extends JPanel {
 
     JButton pantalla;
     JPanel botones;
-    boolean principio;
+    // boolean principio;
     double resultado;
     String ultimaOperacion;
     String concatDigitos = "";
+    JButton botonPunto;
+    ActionListener oyente;
+    ActionListener operar;
+    JButton botonMenos;
 
     public Panel_Principal() {
         this.setLayout(new BorderLayout());
@@ -46,9 +50,9 @@ class Panel_Principal extends JPanel {
         this.add(display, BorderLayout.NORTH);
         this.add(botones, BorderLayout.CENTER);
 
-        principio = true;
-        ActionListener oyente = new InsertarNumero();
-        ActionListener operar = new OyenteOperacion();
+        // principio = true;
+        oyente = new InsertarNumero();
+        operar = new OyenteOperacion();
 
         ponerBoton("7", oyente);
         ponerBoton("8", oyente);
@@ -73,12 +77,19 @@ class Panel_Principal extends JPanel {
     private class InsertarNumero implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (principio) {
-                pantalla.setText("");
-                principio = false;
+
+            /*
+             * if (principio) { pantalla.setText(""); principio = false; }
+             */
+            if (e.getActionCommand() == "." || concatDigitos.contains(".")) {
+                botonPunto.setEnabled(false);
+            } else {
+                botonPunto.setEnabled(true);
             }
+
             String digito = e.getActionCommand();
             concatDigitos += digito;
+
             pantalla.setText(String.valueOf(concatDigitos));
         }
 
@@ -88,21 +99,31 @@ class Panel_Principal extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+
             concatDigitos = "";
+
+            botonPunto.setEnabled(false);
             String operacion = e.getActionCommand();
 
             calcular(Double.parseDouble(pantalla.getText()));
+
             ultimaOperacion = operacion;
-
-            principio = true;
+            // principio = true;
         }
-
     }
 
     private void ponerBoton(String rotulo, ActionListener oyente) {
+        // ActionListener insertar = new InsertarNumero();
         JButton btn = new JButton(rotulo);
         btn.addActionListener(oyente);
         botones.add(btn);
+        if (btn.getText() == ".") {
+            btn.setEnabled(false);
+            botonPunto = btn;
+        }
+        if (btn.getText() == "-") {
+            botonMenos = btn;
+        }
     }
 
     public void calcular(double num) {
@@ -120,6 +141,7 @@ class Panel_Principal extends JPanel {
             System.out.println(resultado);
         } else if (ultimaOperacion.equals("=")) {
             resultado = num;
+            System.out.println(resultado);
         }
 
         pantalla.setText(String.valueOf(resultado));
