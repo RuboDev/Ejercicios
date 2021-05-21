@@ -21,51 +21,42 @@ class Marco_radio extends JFrame {
 
 class Lamina_radio extends JPanel {
     private JLabel texto;
-    private JRadioButton boton1, boton2, boton3, boton4;
+    private ButtonGroup migrupo;
+    private JPanel lamina_botones;
 
     public Lamina_radio() {
         setLayout(new BorderLayout());
 
         texto = new JLabel("En un lugar de la Mancha de cuyo nombre...");
+        texto.setFont(new Font("Serif", Font.PLAIN, 12));
         add(texto, BorderLayout.CENTER);
 
-        ButtonGroup migrupo = new ButtonGroup();
-        boton1 = new JRadioButton("Pequeño", false);
-        boton2 = new JRadioButton("Mediano", false);
-        boton3 = new JRadioButton("Grande", false);
-        boton4 = new JRadioButton("Muy Grande", false);
+        migrupo = new ButtonGroup();
+        lamina_botones = new JPanel();
 
-        boton1.addActionListener(new oyenteRButtons());
-        boton2.addActionListener(new oyenteRButtons());
-        boton3.addActionListener(new oyenteRButtons());
-        boton4.addActionListener(new oyenteRButtons());
-        migrupo.add(boton1);
-        migrupo.add(boton2);
-        migrupo.add(boton3);
-        migrupo.add(boton4);
+        colocarBotones("Pequeño", false, 10);
+        colocarBotones("Mediano", false, 12);
+        colocarBotones("Grande", false, 18);
+        colocarBotones("Muy Grande", false, 24);
 
-        JPanel laminaRButtons = new JPanel();
-        laminaRButtons.add(boton1);
-        laminaRButtons.add(boton2);
-        laminaRButtons.add(boton3);
-        laminaRButtons.add(boton4);
-
-        add(laminaRButtons, BorderLayout.SOUTH);
+        add(lamina_botones, BorderLayout.SOUTH);
     }
 
-    private class oyenteRButtons implements ActionListener {
+    public void colocarBotones(String nombre, boolean seleccionado, final int size) {
+        JRadioButton boton = new JRadioButton(nombre, seleccionado);
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == boton1) {
-                texto.setFont(new Font("Serif", Font.PLAIN, 10));
-            } else if (e.getSource() == boton2) {
-                texto.setFont(new Font("Serif", Font.PLAIN, 12));
-            } else if (e.getSource() == boton3) {
-                texto.setFont(new Font("Serif", Font.PLAIN, 18));
-            } else if (e.getSource() == boton4) {
-                texto.setFont(new Font("Serif", Font.PLAIN, 24));
+        
+        migrupo.add(boton);
+
+        ActionListener mievento = new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                texto.setFont(new Font("Serif", Font.PLAIN, size));
             }
-        }
+        };
+        boton.addActionListener(mievento);
+
+        lamina_botones.add(boton);
     }
 }
