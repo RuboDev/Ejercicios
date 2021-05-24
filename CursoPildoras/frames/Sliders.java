@@ -1,10 +1,11 @@
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.*;
 
 public class Sliders {
     public static void main(String[] args) {
-        MarcoSliders marco=new MarcoSliders();
+        MarcoSliders marco = new MarcoSliders();
         marco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
@@ -20,15 +21,41 @@ class MarcoSliders extends JFrame {
 }
 
 class LaminaSliders extends JPanel {
+    private JLabel rotulo;
+    private JSlider control;
+
     public LaminaSliders() {
-        JSlider control=new JSlider(0,100,25);
-        //control.setOrientation(SwingConstants.VERTICAL);
-        control.setMajorTickSpacing(20);
-        control.setMinorTickSpacing(10);
-        control.setPaintTicks(true);
-        control.setPaintLabels(true);
-        control.setFont(new Font("Serif", Font.ITALIC, 12));
-        control.setSnapToTicks(true);
-        add(control);
+        setLayout(new BorderLayout());
+        control = new JSlider(8, 52, 12);
+        // control.setOrientation(SwingConstants.VERTICAL); se puede disponer en
+        // vertical o horizontal.
+        control.setMajorTickSpacing(4); // Tick grande cada 4 unidades
+        control.setMinorTickSpacing(1); // Tick peque cada 1 unidad
+        control.setPaintTicks(true); // pintar tricks: true/false
+        control.setPaintLabels(true); // pintar etiquetas a los ticks: true/false - numeros por ej.
+        control.setFont(new Font("Serif", Font.ITALIC, 10)); // fuente de las etiquetas
+        control.setSnapToTicks(true); /*
+                                       * imantiza los ticks, si sueltas el arrastre entre dos ticks, 
+                                       * va hacia el más cercano.
+                                       */
+
+        oyenteSlider oyente = new oyenteSlider();
+        control.addChangeListener(oyente);
+
+        JPanel laminaSlider = new JPanel();
+        laminaSlider.add(control);
+        add(laminaSlider, BorderLayout.NORTH);
+
+        rotulo = new JLabel("En un lugar de la Mancha de cuyo nombre...");
+        add(rotulo, BorderLayout.CENTER);
+        System.out.println(rotulo.getFont());
+    }
+
+    private class oyenteSlider implements ChangeListener {
+
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            rotulo.setFont(new Font("Dialog", Font.PLAIN, control.getValue()));
+        }
     }
 }
