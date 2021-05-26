@@ -39,8 +39,8 @@ class LaminaProcesador_II extends JPanel {
         barra.add(estilos);
         barra.add(size);
 
-        JMenuItem negrita = new JMenuItem("Negrita");
-        JMenuItem cursiva = new JMenuItem("Cursiva");
+        JMenuItem negrita = new JMenuItem("Negrita", new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/negrita.png"));
+        JMenuItem cursiva = new JMenuItem("Cursiva", new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/cursiva.png"));
         negrita.addActionListener(new StyledEditorKit.BoldAction());
         cursiva.addActionListener(new StyledEditorKit.ItalicAction());
         estilos.add(negrita);
