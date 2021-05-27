@@ -21,7 +21,7 @@ class MarcoProcesador_II extends JFrame {
 
 class LaminaProcesador_II extends JPanel {
 
-    JMenu fuentes, size;
+    JMenu fuentes, sizeMenu;
     JMenuItem fuenteItem, sizeItem;
     JTextPane textoPanel;
 
@@ -34,13 +34,15 @@ class LaminaProcesador_II extends JPanel {
         JMenuBar barra = new JMenuBar();
         fuentes = new JMenu("Fuentes");
         JMenu estilos = new JMenu("Estilos");
-        size = new JMenu("Tamaño");
+        sizeMenu = new JMenu("Tamaño");
         barra.add(fuentes);
         barra.add(estilos);
-        barra.add(size);
+        barra.add(sizeMenu);
 
-        JMenuItem negrita = new JMenuItem("Negrita", new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/negrita.png"));
-        JMenuItem cursiva = new JMenuItem("Cursiva", new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/cursiva.png"));
+        JCheckBoxMenuItem negrita = new JCheckBoxMenuItem("Negrita",
+                new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/negrita.png"));
+        JCheckBoxMenuItem cursiva = new JCheckBoxMenuItem("Cursiva",
+                new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/cursiva.png"));
         negrita.addActionListener(new StyledEditorKit.BoldAction());
         cursiva.addActionListener(new StyledEditorKit.ItalicAction());
         estilos.add(negrita);
@@ -69,11 +71,14 @@ class LaminaProcesador_II extends JPanel {
     }
 
     public void colocarSizeItems() {
+        ButtonGroup grupoSizeItems = new ButtonGroup();
+        JRadioButtonMenuItem radioItems;
         int[] sizeArray = { 8, 10, 12, 14, 16, 18, 20, 22, 24 };
         for (int i = 0; i < sizeArray.length; i++) {
-            sizeItem = new JMenuItem(String.valueOf(sizeArray[i]));
-            size.add(sizeItem);
-            sizeItem.addActionListener(new StyledEditorKit.FontSizeAction("cambia_size", sizeArray[i]));
+            radioItems = new JRadioButtonMenuItem(String.valueOf(sizeArray[i]));
+            radioItems.addActionListener(new StyledEditorKit.FontSizeAction("cambia_size", sizeArray[i]));
+            grupoSizeItems.add(radioItems);
+            sizeMenu.add(radioItems);
         }
     }
 }
