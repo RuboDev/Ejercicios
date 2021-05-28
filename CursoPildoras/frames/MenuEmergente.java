@@ -13,7 +13,7 @@ public class MenuEmergente {
 class MarcoMenuEmergente extends JFrame {
     public MarcoMenuEmergente() {
         setTitle("Prueba Menu Emergente");
-        setBounds(500, 300, 500, 350);
+        setBounds(500, 300, 550, 400);
         LaminaMenuEmergente lamina = new LaminaMenuEmergente();
         add(lamina);
         setVisible(true);
@@ -94,13 +94,25 @@ class LaminaMenuEmergente extends JPanel {
         // Constructing JToolBar
         // ------------------------------------------------------------------------- //
         JToolBar barraH = new JToolBar();
+
+        // Style Buttons ---------------------
         JButton negritaBarra = new JButton(new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/negrita.png"));
         JButton cursivaBarra = new JButton(new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/cursiva.png"));
         JButton underBarra = new JButton(new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/underline.png"));
+
+        // Color Buttons ---------------------
         JButton azulBarra = new JButton(new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/azul.png"));
         JButton amarilloBarra = new JButton(new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/amarillo.png"));
         JButton RojoBarra = new JButton(new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/rojo.png"));
 
+        // Alignment Buttons -----------------
+        JButton centerAlign = new JButton(new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/centrado.png"));
+        JButton justifiedAlign = new JButton(
+                new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/justificado.png"));
+        JButton leftAlign = new JButton(new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/left.png"));
+        JButton rightAlign = new JButton(new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/right.png"));
+
+        // Listeners ----------------------------------------------------------------
         negritaBarra.addActionListener(new StyledEditorKit.BoldAction());
         negritaBarra.addActionListener(new EstatusBoldItalic("Negrita"));
 
@@ -113,12 +125,22 @@ class LaminaMenuEmergente extends JPanel {
         amarilloBarra.addActionListener(new StyledEditorKit.ForegroundAction("texto en amarillo", Color.YELLOW));
         RojoBarra.addActionListener(new StyledEditorKit.ForegroundAction("texto en rojo", Color.RED));
 
+        centerAlign.addActionListener(new StyledEditorKit.AlignmentAction("Center Alignment", 1));
+        justifiedAlign.addActionListener(new StyledEditorKit.AlignmentAction("Justified Alignment", 3));
+        leftAlign.addActionListener(new StyledEditorKit.AlignmentAction("Left Alignment", 0));
+        rightAlign.addActionListener(new StyledEditorKit.AlignmentAction("Right Alignment", 2));
+        // ----------------------------------------------------------------------------
+
         barraH.add(negritaBarra);
         barraH.add(cursivaBarra);
         barraH.add(underBarra);
         barraH.add(azulBarra);
         barraH.add(amarilloBarra);
         barraH.add(RojoBarra);
+        barraH.add(centerAlign);
+        barraH.add(justifiedAlign);
+        barraH.add(leftAlign);
+        barraH.add(rightAlign);
         barraH.setOrientation(JToolBar.VERTICAL);
         add(barraH, BorderLayout.WEST);
     }
