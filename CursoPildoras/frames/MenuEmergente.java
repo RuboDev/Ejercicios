@@ -97,6 +97,9 @@ class LaminaMenuEmergente extends JPanel {
         JButton negritaBarra = new JButton(new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/negrita.png"));
         JButton cursivaBarra = new JButton(new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/cursiva.png"));
         JButton underBarra = new JButton(new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/underline.png"));
+        JButton azulBarra = new JButton(new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/azul.png"));
+        JButton amarilloBarra = new JButton(new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/amarillo.png"));
+        JButton RojoBarra = new JButton(new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/rojo.png"));
 
         negritaBarra.addActionListener(new StyledEditorKit.BoldAction());
         negritaBarra.addActionListener(new EstatusBoldItalic("Negrita"));
@@ -106,9 +109,16 @@ class LaminaMenuEmergente extends JPanel {
 
         underBarra.addActionListener(new StyledEditorKit.UnderlineAction());
 
+        azulBarra.addActionListener(new StyledEditorKit.ForegroundAction("texto en azul", Color.BLUE));
+        amarilloBarra.addActionListener(new StyledEditorKit.ForegroundAction("texto en amarillo", Color.YELLOW));
+        RojoBarra.addActionListener(new StyledEditorKit.ForegroundAction("texto en rojo", Color.RED));
+
         barraH.add(negritaBarra);
         barraH.add(cursivaBarra);
         barraH.add(underBarra);
+        barraH.add(azulBarra);
+        barraH.add(amarilloBarra);
+        barraH.add(RojoBarra);
         barraH.setOrientation(JToolBar.VERTICAL);
         add(barraH, BorderLayout.WEST);
     }
