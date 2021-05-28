@@ -49,10 +49,12 @@ class LaminaMenuEmergente extends JPanel {
 
         negrita.addActionListener(new EstatusBoldItalic("Negrita"));
         negrita.addActionListener(new StyledEditorKit.BoldAction());
+        //set a shortcut for JMenuItem negrita (Bold)
         negrita.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK));
 
         cursiva.addActionListener(new EstatusBoldItalic("Cursiva"));
         cursiva.addActionListener(new StyledEditorKit.ItalicAction());
+        //set a shortcut for JMenuItem cursiva (Italic)
         cursiva.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_K, InputEvent.CTRL_DOWN_MASK));
 
         estilos.add(negrita);
