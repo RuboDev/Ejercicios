@@ -49,9 +49,11 @@ class LaminaMenuEmergente extends JPanel {
 
         negrita.addActionListener(new EstatusBoldItalic("Negrita"));
         negrita.addActionListener(new StyledEditorKit.BoldAction());
+        negrita.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK));
 
         cursiva.addActionListener(new EstatusBoldItalic("Cursiva"));
         cursiva.addActionListener(new StyledEditorKit.ItalicAction());
+        cursiva.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_K, InputEvent.CTRL_DOWN_MASK));
 
         estilos.add(negrita);
         estilos.add(cursiva);
@@ -138,6 +140,9 @@ class LaminaMenuEmergente extends JPanel {
         for (int i = 0; i < sizeArray.length; i++) {
             radioItems = new JRadioButtonMenuItem(String.valueOf(sizeArray[i]));
             radioItems.addActionListener(new StyledEditorKit.FontSizeAction("cambia_size", sizeArray[i]));
+            if (i == 8) {
+                radioItems.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_DOWN_MASK));
+            }
             grupoSizeItems.add(radioItems);
             sizeMenu.add(radioItems);
         }
