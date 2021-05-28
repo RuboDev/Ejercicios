@@ -49,12 +49,12 @@ class LaminaMenuEmergente extends JPanel {
 
         negrita.addActionListener(new EstatusBoldItalic("Negrita"));
         negrita.addActionListener(new StyledEditorKit.BoldAction());
-        //set a shortcut for JMenuItem negrita (Bold)
+        // set a shortcut for JMenuItem negrita (Bold)
         negrita.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK));
 
         cursiva.addActionListener(new EstatusBoldItalic("Cursiva"));
         cursiva.addActionListener(new StyledEditorKit.ItalicAction());
-        //set a shortcut for JMenuItem cursiva (Italic)
+        // set a shortcut for JMenuItem cursiva (Italic)
         cursiva.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_K, InputEvent.CTRL_DOWN_MASK));
 
         estilos.add(negrita);
@@ -90,6 +90,27 @@ class LaminaMenuEmergente extends JPanel {
         // Initializing methods that put Items in menus
         colocaFuenteItems();
         colocarSizeItems();
+
+        // Constructing JToolBar
+        // ------------------------------------------------------------------------- //
+        JToolBar barraH = new JToolBar();
+        JButton negritaBarra = new JButton(new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/negrita.png"));
+        JButton cursivaBarra = new JButton(new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/cursiva.png"));
+        JButton underBarra = new JButton(new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/underline.png"));
+
+        negritaBarra.addActionListener(new StyledEditorKit.BoldAction());
+        negritaBarra.addActionListener(new EstatusBoldItalic("Negrita"));
+
+        cursivaBarra.addActionListener(new StyledEditorKit.ItalicAction());
+        cursivaBarra.addActionListener(new EstatusBoldItalic("Cursiva"));
+
+        underBarra.addActionListener(new StyledEditorKit.UnderlineAction());
+
+        barraH.add(negritaBarra);
+        barraH.add(cursivaBarra);
+        barraH.add(underBarra);
+        barraH.setOrientation(JToolBar.VERTICAL);
+        add(barraH, BorderLayout.WEST);
     }
 
     private class EstatusBoldItalic implements ActionListener {
@@ -109,11 +130,19 @@ class LaminaMenuEmergente extends JPanel {
                 } else if (ultimo == "Cursiva") {
                     cursiva.setSelected(!cursiva.isSelected());
                 }
-            } else {
+            } else if (e.getSource() == negrita || e.getSource() == cursiva) {
                 if (ultimo == "Negrita") {
                     negritaE.setSelected(!negritaE.isSelected());
                 } else if (ultimo == "Cursiva") {
                     cursivaE.setSelected(!cursivaE.isSelected());
+                }
+            } else {
+                if (ultimo == "Negrita") {
+                    negritaE.setSelected(!negritaE.isSelected());
+                    negrita.setSelected(!negrita.isSelected());
+                } else if (ultimo == "Cursiva") {
+                    cursivaE.setSelected(!cursivaE.isSelected());
+                    cursiva.setSelected(!cursiva.isSelected());
                 }
             }
 
