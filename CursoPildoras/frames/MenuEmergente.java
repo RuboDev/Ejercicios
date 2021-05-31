@@ -13,7 +13,7 @@ public class MenuEmergente {
 class MarcoMenuEmergente extends JFrame {
     public MarcoMenuEmergente() {
         setTitle("Prueba Menu Emergente");
-        setBounds(500, 300, 550, 400);
+        setBounds(500, 300, 550, 420);
         LaminaMenuEmergente lamina = new LaminaMenuEmergente();
         add(lamina);
         setVisible(true);
@@ -21,20 +21,18 @@ class MarcoMenuEmergente extends JFrame {
 }
 
 class LaminaMenuEmergente extends JPanel {
-
     JMenu fuentes, sizeMenu;
     JMenuItem fuenteItem, sizeItem;
     JTextPane textoPanel;
     JCheckBoxMenuItem negrita, cursiva, negritaE, cursivaE;
+    JToolBar barraH;
 
     public LaminaMenuEmergente() {
         setLayout(new BorderLayout());
         // Constructing Menu's Panel, Menus, MenuBar, menus etc.
         // ------------------------------------------------------------------------- //
         JPanel barraPanel = new JPanel();
-
         JMenuBar barra = new JMenuBar();
-
         fuentes = new JMenu("Fuentes");
         JMenu estilos = new JMenu("Estilos");
         sizeMenu = new JMenu("Tamaño");
@@ -66,7 +64,6 @@ class LaminaMenuEmergente extends JPanel {
 
         // Constructing JTextPane
         textoPanel = new JTextPane();
-        // textoPanel.setLineWrap(true);
         add(textoPanel, BorderLayout.CENTER);
 
         // Constructing PopupMenu
@@ -93,56 +90,48 @@ class LaminaMenuEmergente extends JPanel {
 
         // Constructing JToolBar
         // ------------------------------------------------------------------------- //
-        JToolBar barraH = new JToolBar();
-
+        barraH = new JToolBar();
         // Style Buttons ---------------------
-        JButton negritaBarra = new JButton(new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/negrita.png"));
-        JButton cursivaBarra = new JButton(new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/cursiva.png"));
-        JButton underBarra = new JButton(new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/underline.png"));
-
-        // Color Buttons ---------------------
-        JButton azulBarra = new JButton(new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/azul.png"));
-        JButton amarilloBarra = new JButton(new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/amarillo.png"));
-        JButton RojoBarra = new JButton(new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/rojo.png"));
-
-        // Alignment Buttons -----------------
-        JButton centerAlign = new JButton(new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/centrado.png"));
-        JButton justifiedAlign = new JButton(
-                new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/justificado.png"));
-        JButton leftAlign = new JButton(new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/left.png"));
-        JButton rightAlign = new JButton(new ImageIcon("Ejercicios/CursoPildoras/resources/iconos/right.png"));
-
-        // Listeners ----------------------------------------------------------------
+        JButton negritaBarra = configura_barraH("Ejercicios/CursoPildoras/resources/iconos/negrita.png");
         negritaBarra.addActionListener(new StyledEditorKit.BoldAction());
-        negritaBarra.addActionListener(new EstatusBoldItalic("Negrita"));
-
+        JButton cursivaBarra = configura_barraH("Ejercicios/CursoPildoras/resources/iconos/cursiva.png");
         cursivaBarra.addActionListener(new StyledEditorKit.ItalicAction());
+        configura_barraH("Ejercicios/CursoPildoras/resources/iconos/underline.png")
+                .addActionListener(new StyledEditorKit.UnderlineAction());
+        // Bold and Italic Status Control Listeners -----
+        negritaBarra.addActionListener(new EstatusBoldItalic("Negrita"));
         cursivaBarra.addActionListener(new EstatusBoldItalic("Cursiva"));
 
-        underBarra.addActionListener(new StyledEditorKit.UnderlineAction());
+        barraH.addSeparator();
+        // Color Buttons ---------------------
+        configura_barraH("Ejercicios/CursoPildoras/resources/iconos/azul.png")
+                .addActionListener(new StyledEditorKit.ForegroundAction("texto en azul", Color.BLUE));
+        configura_barraH("Ejercicios/CursoPildoras/resources/iconos/amarillo.png")
+                .addActionListener(new StyledEditorKit.ForegroundAction("texto en amarillo", Color.YELLOW));
+        configura_barraH("Ejercicios/CursoPildoras/resources/iconos/rojo.png")
+                .addActionListener(new StyledEditorKit.ForegroundAction("texto en rojo", Color.RED));
 
-        azulBarra.addActionListener(new StyledEditorKit.ForegroundAction("texto en azul", Color.BLUE));
-        amarilloBarra.addActionListener(new StyledEditorKit.ForegroundAction("texto en amarillo", Color.YELLOW));
-        RojoBarra.addActionListener(new StyledEditorKit.ForegroundAction("texto en rojo", Color.RED));
-
-        centerAlign.addActionListener(new StyledEditorKit.AlignmentAction("Center Alignment", 1));
-        justifiedAlign.addActionListener(new StyledEditorKit.AlignmentAction("Justified Alignment", 3));
-        leftAlign.addActionListener(new StyledEditorKit.AlignmentAction("Left Alignment", 0));
-        rightAlign.addActionListener(new StyledEditorKit.AlignmentAction("Right Alignment", 2));
-        // ----------------------------------------------------------------------------
-
-        barraH.add(negritaBarra);
-        barraH.add(cursivaBarra);
-        barraH.add(underBarra);
-        barraH.add(azulBarra);
-        barraH.add(amarilloBarra);
-        barraH.add(RojoBarra);
-        barraH.add(centerAlign);
-        barraH.add(justifiedAlign);
-        barraH.add(leftAlign);
-        barraH.add(rightAlign);
+        barraH.addSeparator();
+        // Alignment Buttons -----------------
+        configura_barraH("Ejercicios/CursoPildoras/resources/iconos/centrado.png")
+                .addActionListener(new StyledEditorKit.AlignmentAction("Center Alignment", 1));
+        configura_barraH("Ejercicios/CursoPildoras/resources/iconos/justificado.png")
+                .addActionListener(new StyledEditorKit.AlignmentAction("Justified Alignment", 3));
+        configura_barraH("Ejercicios/CursoPildoras/resources/iconos/left.png")
+                .addActionListener(new StyledEditorKit.AlignmentAction("Left Alignment", 0));
+        configura_barraH("Ejercicios/CursoPildoras/resources/iconos/right.png")
+                .addActionListener(new StyledEditorKit.AlignmentAction("Right Alignment", 2));
+        // ----
         barraH.setOrientation(JToolBar.VERTICAL);
+        // ------------------------------------------------------------------------- //
+
         add(barraH, BorderLayout.WEST);
+    }
+
+    public JButton configura_barraH(String ruta) {
+        JButton boton = new JButton(new ImageIcon(ruta));
+        barraH.add(boton);
+        return boton;
     }
 
     private class EstatusBoldItalic implements ActionListener {
