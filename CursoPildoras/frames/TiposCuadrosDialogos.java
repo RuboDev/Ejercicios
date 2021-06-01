@@ -41,25 +41,21 @@ class LaminaCuadrosDialogos extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == boton1) {
-                // System.out.println("Has pulsado el boton 1");
-                // JOptionPane.showMessageDialog(LaminaCuadrosDialogos.this, "Mensaje de
-                // prueba");
                 JOptionPane.showMessageDialog(LaminaCuadrosDialogos.this, "Mensaje de prueba", "Advertencia", 2);
             }
 
             if (e.getSource() == boton2) {
-                System.out.println("Has pulsado el boton 2");
                 JOptionPane.showInputDialog(LaminaCuadrosDialogos.this, "Introduce nombre", "Introduccion datos", 2);
             }
 
             if (e.getSource() == boton3) {
-                System.out.println("Has pulsado el boton 3");
+                JOptionPane.showConfirmDialog(LaminaCuadrosDialogos.this, "Elige opcion", "V. Confirmar", 0);
             }
 
             if (e.getSource() == boton4) {
-                System.out.println("Has pulsado el boton 4");
+                JOptionPane.showOptionDialog(LaminaCuadrosDialogos.this, "Elige", "V. de opciones", 1, 1, null, null,
+                        null);
             }
         }
-
     }
 }
