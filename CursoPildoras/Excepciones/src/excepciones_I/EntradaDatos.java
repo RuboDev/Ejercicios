@@ -13,7 +13,14 @@ public class EntradaDatos {
         int decision = sc.nextInt();
 
         if (decision == 1) {
-            pedirDatos();
+            try {
+                pedirDatos();
+            } catch (InputMismatchException e) {/*
+                                                 * Se puede capturar como una excepcion más genérica, anterior en el
+                                                 * arbol de herencia, por ejemplo Exception o RuntimeException
+                                                 */
+                System.out.println("El dato introducido no es una edad.");
+            }
         } else {
             System.out.println("Adios");
             System.exit(0);
@@ -33,24 +40,17 @@ public class EntradaDatos {
          * problema más fácilmente.
          */
 
-        try {
-            Scanner sc = new Scanner(System.in);
+        // try {
+        Scanner sc = new Scanner(System.in);
 
-            System.out.println("Introduce tu nombre, por favor");
-            String nombre_usuario = sc.nextLine(); // InputMismatchException
+        System.out.println("Introduce tu nombre, por favor");
+        String nombre_usuario = sc.nextLine(); // InputMismatchException
 
-            System.out.println("Introduce edad, por favor");
-            int edad = sc.nextInt(); // InputMismatchException
+        System.out.println("Introduce edad, por favor");
+        int edad = sc.nextInt(); // InputMismatchException
 
-            System.out.println("Hola " + nombre_usuario + ". El año que viene tendrás " + (edad + 1) + " años");
-            sc.close();
-        } catch (InputMismatchException e) { /*
-                                              * Se puede capturar como una excepcion más genérica, anterior en el arbol
-                                              * de herencia, por ejemplo Exception o RuntimeException
-                                              */
-            System.out.println("El dato introducido no es una edad.");
-        }
-
+        System.out.println("Hola " + nombre_usuario + ". El año que viene tendrás " + (edad + 1) + " años");
+        sc.close();
         System.out.println("Hemos terminado");
 
     }
