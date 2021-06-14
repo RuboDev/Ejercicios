@@ -1,7 +1,5 @@
 package excepciones_I;
 
-import java.io.EOFException;
-
 import javax.swing.JOptionPane;
 
 public class CompruebaMail {
@@ -9,22 +7,20 @@ public class CompruebaMail {
         String mail = JOptionPane.showInputDialog("Introduce mail");
         try {
             examinaMail(mail);
-        } catch (EOFException e) {
-            System.out.println("La direccion de email no es correcta.");
+        } catch (LongitudMailErronea e) {
+            e.printStackTrace();
+            // System.out.println(e.getMessage());
+            // System.out.println("La direccion de email no es correcta.");
         }
     }
 
-    static void examinaMail(String mail) throws EOFException {
+    static void examinaMail(String mail) throws LongitudMailErronea {
         int arroba = 0;
         boolean punto = false;
 
         if (mail.length() <= 3) {
-
-            throw new EOFException(); // sentencia throw para lanzar un objeto excepcion de forma manual
-            /*
-             * seria mejor crear una excepcion propia, que se ajuste mejor a lo que queremos
-             * hacer
-             */
+            // sentencia throw para lanzar un objeto
+            throw new LongitudMailErronea("El mail no puede tener menos de 4 caracteres");
         } else {
 
             for (int i = 0; i < mail.length(); i++) {
@@ -43,5 +39,15 @@ public class CompruebaMail {
                 System.out.println("No es correcto");
             }
         }
+    }
+}
+
+class LongitudMailErronea extends Exception { // creamos nuestra propia exception
+    public LongitudMailErronea() {
+        super();
+    }
+
+    public LongitudMailErronea(String msgError) {
+        super(msgError);
     }
 }
