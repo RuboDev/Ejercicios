@@ -1,5 +1,6 @@
 package leyendo;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -18,13 +19,14 @@ class LeerFichero {
                                                                      * el archivo puede estar en cualquier ruta, pero
                                                                      * queria guardar el archivo en el proyecto
                                                                      */
+            BufferedReader mibuffer = new BufferedReader(entrada);
+            String linea = "";
 
-            int c = entrada.read();
-
-            while (c != -1) {
-                char letra = (char) c;
-                System.out.print(letra);
-                c = entrada.read();
+            while (linea != null) {
+                linea = mibuffer.readLine();
+                if (linea != null) {
+                    System.out.println(linea);
+                }
             }
 
             entrada.close();
