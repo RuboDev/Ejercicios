@@ -6,7 +6,7 @@ import java.io.IOException;
 public class LecturaEscritura {
     public static void main(String[] args) {
         int cont = 0;
-        int datosEntrada[] = new int[20994];
+        int datosEntrada[] = new int[20993];
 
         try {
             FileInputStream archivoLectura = new FileInputStream("/home/rubo/Descargas/gato.jpg");
