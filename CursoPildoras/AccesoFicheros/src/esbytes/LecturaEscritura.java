@@ -9,7 +9,7 @@ public class LecturaEscritura {
         int datosEntrada[] = new int[20993];
 
         try {
-            FileInputStream archivoLectura = new FileInputStream("/home/rubo/Descargas/gato.jpg");
+            FileInputStream archivoLectura = new FileInputStream("src/img/gato.jpg");
             boolean finalAr = false;
 
             while (!finalAr) {
