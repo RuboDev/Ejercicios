@@ -2,12 +2,16 @@
 
 ## .1 Manejo de archivos. Acceso a ficheros
 
-### .1.1 ¿Qué es un Stream?
+### .1.1 Streams y Ficheros
+
+### *¿Qué es un Stream?*
 - Es un **flujo de datos** mediante el cual se comunican el **programa** y el **origen/destino** de la información. En los Streams, los datos siempre se **transmiten** y procesan **secuencialmente**, es decir, uno tras otro de manera ordenada.
     1. Flujo de Entrada (comunicación programa-origen)
     2. Flujo de Salida (comunicación programa-destino)
 
-### .1.2 ¿Porqué el uso de ficheros?
+- El **origen/destino** desde (o hacia) el que fluyen los Streams es, a menudo, un **fichero** en algún punto del sistema de ficheros de un **dispositivo de almacenamiento** físico(Como Disco duro, USB, etc.).
+
+### *¿Porqué el uso de ficheros?*
 
 - Para **almacenar** la información de forma **permanente** en algún dispositivo de almacenamiento, y no en RAM, que es temporal.
 Para hacerlo necesitamos el uso de Streams.
@@ -26,7 +30,7 @@ Las **clases** vinculadas a los flujos Entrada y Salida (E/S) se encuentran en e
 ![java.io](src/img/javaIO.png)
 
 
-### .1.3 Formas de abordar los streams:
+### .1.2 Formas de abordar los streams:
 1. Flujos de **Bytes**
     - **Uso general:** envío de información a través de la red. 
     - **Clases:** `InputStream` y `OutputStream` (Abstractas).
@@ -39,7 +43,7 @@ Las **clases** vinculadas a los flujos Entrada y Salida (E/S) se encuentran en e
 ![clases fundamentales de java.io](src/img/clasesFundamentalesIO.png)
 <br/><br/>
 
-### .1.4 Otras Clases
+### .1.3 Otras Clases
 - `File` - Permite referirse a ficheros y directorios en el sistema de ficheros del ordenador(Pasando ruta por parámetro).
 - `RandomAccesFile` - Permite el acceso directo a cualquier posición de un fichero de texto.
 
