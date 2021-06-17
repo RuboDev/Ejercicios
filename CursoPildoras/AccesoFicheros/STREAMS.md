@@ -67,5 +67,16 @@ máquina.
 - `PrintStream` - Da formato a la salida. (Ej.: Salida estándar `System.out`)
 
 ## .3 Serialización
-(wip)
+### *¿En qué consiste?*
+- La serialización consiste en **transformar un objeto** Java en una **secuencia de bytes** para poder ser enviados correctamente mediante un stream.
+
+### *OJO*
+- Sólo los objetos de clases que implementen la interface java.io.`Serializable` pueden ser serializados.
+- La interfaz `Serializable` sólo sirve para “marcar” las clases que pueden ser serializadas.
+
+**Clases:**
+- Entrada: `ObjectInputStream` (Parametros: objeto de la clase `FileInputStream` para leer y deserializar objetos que vienen de un fichero (mediante stream))
+    - Para deserializar objetos después de leerlos a través del stream de entrada se llama al método `readObject()`
+- Salida: `ObjectOutputStream` (Parametros: objeto de la clase `FileOutputStream` para dirigir los objetos a un fichero mediante stream)
+    - Para serializar objetos y escribirlos a través del stream de salida se llama al método `writeObject()`
 
