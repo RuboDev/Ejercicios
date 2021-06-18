@@ -1,6 +1,7 @@
 package arraylist;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Uso_Empleado {
     public static void main(String[] args) {
@@ -48,10 +49,16 @@ public class Uso_Empleado {
         // System.out.println(e.dameDatos());
         // }
 
-        for (int i = 0; i < listaEmpleados.size(); i++) {
-            Empleado e = listaEmpleados.get(i);
-            System.out.println(e.dameDatos());
+        // for (int i = 0; i < listaEmpleados.size(); i++) {
+        //     Empleado e = listaEmpleados.get(i);
+        //     System.out.println(e.dameDatos());
+        // }
+
+        Iterator <Empleado> mi_iterador = listaEmpleados.iterator();
+        while (mi_iterador.hasNext()) {
+            System.out.println(mi_iterador.next().dameDatos());
         }
+        
 
         // Empleado arrayEmpleados[] = new Empleado[listaEmpleados.size()];
         // listaEmpleados.toArray(arrayEmpleados);
