@@ -80,3 +80,11 @@ máquina.
 - Salida: `ObjectOutputStream` (Parametros: objeto de la clase `FileOutputStream` para dirigir los objetos a un fichero mediante stream)
     - Para serializar objetos y escribirlos a través del stream de salida se llama al método `writeObject()`
 
+### 3.1 serialVersionUID
+Por defecto, el compilador Java establece un serialVersionUID a cada programa. Por lo que si cambiamos algo del código, se considera una versión diferente, y asigna un serialVersionUID diferente. Esto puede dar problemas cuando tenemos nuestro programa distribuido y no todo el mundo ha actualizado a la última versión, ya que no podrían recibir o enviar objetos serializados con una serialVersionUID diferente. Hay 2 formas de abordarlo:
+- Asignando el valor que queramos: `private static final long serialVersionUID = 1L;`
+- Generando un numero con la herramienta serialver del JDK:
+    - Escribimos en consola: `serialver` Clase (donde Clase es el nombre del archivo.class de la clase a la que queremos asignarle una serialVersion).
+    - **OJO:** Debemos estar en la carpeta que contenga los archivos compilados .class en cuestión.
+
+
