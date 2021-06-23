@@ -18,8 +18,8 @@
 ### *Métodos de interrupción*
 
 - void `interrupt()` - Solicita la interrupción de un hilo en ejecución.
-- boolean `isInterrupted()` - Devuelve true/false si está/no está interrumpido.
-- static boolean `interrupted()` - Devuelve true/false si está/no está interrumpido.
+- boolean `isInterrupted()` - Devuelve true/false si **éste** hilo está/no está interrumpido.
+- static boolean `interrupted()` - Devuelve true/false si el hilo **actual** está/no está interrumpido.
 - ~~void `stop()`~~ - Obsoleto 
 
 ### *Método sleep()* 
