@@ -10,7 +10,7 @@ public class BancoSinSincronizar {
 
         do {
             miBanco.transaccionBancaria();
-        } while (Transaccion.cont_id < 1000); // 1000 es el numero de transacciones a realizar
+        } while (Transaccion.cont_id < 100); // 100 es el numero de transacciones a realizar
 
         miBanco.mostrarSaldoCuentas();
     }
@@ -28,16 +28,17 @@ class Banco {
         for (int i = 0; i < 100; i++) { // 100 es el numero de cuentas bancarias que se abriran
             Cuenta nuevacuenta = new Cuenta(i, 2000);
             cuentasBancarias.add(nuevacuenta);
-            System.out.println("Cuenta abierta. Nº: " + nuevacuenta.numero + " Saldo: " + nuevacuenta.saldo + "€");
+            // System.out.println("Cuenta abierta. Nº: " + nuevacuenta.numero + " Saldo: " +
+            // nuevacuenta.saldo + "€");
             saldototal += nuevacuenta.saldo;
         }
         System.out.println("SALDO TOTAL BANCO: " + saldototal + "€");
     }
 
     public void transaccionBancaria() {
-
         Transaccion transa = new Transaccion(cuentasBancarias);
         transa.start();
+
         try {
             transa.join();
         } catch (InterruptedException e) {
@@ -72,23 +73,24 @@ class Transaccion extends Thread {
 
     public Transaccion(ArrayList<Cuenta> cuentasBancarias) {
         id = cont_id;
+        cont_id++;
         this.cuentasBancarias = cuentasBancarias;
     }
 
     public void run() {
-        cont_id++;
-        System.out.println(id);
-
         Cuenta cuenta1 = cuentasBancarias.get((int) (Math.random() * 100)); // Elegimos cuenta random del 0 al 99
         Cuenta cuenta2 = cuentasBancarias.get((int) (Math.random() * 100)); // Elegimos cuenta random del 0 all 99
 
-        cuenta1.saldo = cuenta1.saldo - (int) (Math.random() * cuenta1.saldo); // Cantidad que se sustrae de una cuenta
-                                                                               // random de 0 al saldo
-        cuenta2.saldo = cuenta2.saldo + cuenta1.saldo; // Cantidad que se añade a la cuenta beneficiaria
+        double sustraccion = (int) (Math.random() * cuenta1.saldo);
+        cuenta1.saldo = cuenta1.saldo - sustraccion; // Cantidad que se sustrae de una cuenta
+                                                     // random de 0 al saldo
+        cuenta2.saldo = cuenta2.saldo + sustraccion; // Cantidad que se añade a la cuenta beneficiaria
 
         cuentasBancarias.set(cuentasBancarias.indexOf(cuenta1), cuenta1); // seteamos la cuenta1 con el nuevo saldo en
                                                                           // su posicion
         cuentasBancarias.set(cuentasBancarias.indexOf(cuenta2), cuenta2); // seteamos la cuenta2 con el nuevo saldo en
                                                                           // su posicion
+        System.out.println(
+                "transactionId:" + id + " " + sustraccion + "€ de Nº:" + cuenta1.numero + " para Nº:" + cuenta2.numero);
     }
 }
