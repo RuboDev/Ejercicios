@@ -100,6 +100,8 @@ class LaminaPelota extends JPanel {
 		for (Pelota b : pelotas) {
 			g2.fill(b.getShape());
 		}
+		// Asegura que el objeto gráfico se actualiza
+		Toolkit.getDefaultToolkit().sync();
 	}
 }
 
