@@ -25,3 +25,11 @@
 ### *Método sleep()* 
 static void `sleep()` - Pausa la ejecución del hilo durante: tiempo en milisegundos pasado por parámetro.
 - Cuando el hilo se encuentra pausado por sleep, si se trata de interrumpir con el método `interrupt()`, el método void `sleep()` lanza una excepción `InterruptedException`
+
+## .3 Sincronización de Threads
+
+### *Estados de los Threads*
+- **Nuevo** - Adquiere este estado al instanciarse.
+- **Ejecutable** - Adquiere este estado cuando ya se ha iniciado con el método start()
+- **Bloqueado** - Adquiere este estado cuando estando en estado Ejecutable se llama al método sleep().
+- **Muerto** - Adquiere este estado cuando concluye el método run(). Cuando ocurre una excepción y ésta no se captura. O cuando utilizamos el método ~~stop()~~.
