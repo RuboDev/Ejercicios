@@ -25,19 +25,23 @@ class PelotaHilos implements Runnable {
 
 	@Override
 	public void run() {
-		System.out.println("Estado del hilo al comenzar: "+Thread.currentThread().isInterrupted());
+		System.out.println("Estado del hilo al comenzar: " + Thread.currentThread().isInterrupted());
 		// for (int i = 1; i <= 3000; i++) {
 		// while (!Thread.interrupted()) {
 		while (!Thread.currentThread().isInterrupted()) {
 			pelota.mueve_pelota(componente.getBounds());
 			componente.paint(componente.getGraphics());
-			/*
-			 * try { Thread.sleep(4); } catch (InterruptedException e) { //
-			 * e.printStackTrace();
-			 * System.out.println("Hilo bloqueado. Imposible su interrupción"); }
-			 */
+
+			try {
+				Thread.sleep(4);
+			} catch (InterruptedException e) { //
+				// e.printStackTrace();
+				// System.out.println("Hilo bloqueado. Imposible su interrupción");
+				Thread.currentThread().interrupt();
+			}
+
 		}
-		System.out.println("Estado del hilo al terminar "+ Thread.currentThread().isInterrupted());
+		System.out.println("Estado del hilo al terminar " + Thread.currentThread().isInterrupted());
 	}
 }
 
@@ -113,10 +117,11 @@ class LaminaPelota extends JPanel {
 
 class MarcoRebote extends JFrame {
 	private LaminaPelota lamina;
-	Thread hilo1;
+	Thread hilo1, hilo2, hilo3;
+	JButton arranca1, arranca2, arranca3, detener1, detener2, detener3;
 
 	public MarcoRebote() {
-		setBounds(600, 300, 400, 350);
+		setBounds(600, 300, 800, 350);
 		setTitle("Rebotes");
 
 		lamina = new LaminaPelota();
@@ -124,48 +129,99 @@ class MarcoRebote extends JFrame {
 
 		JPanel laminaBotones = new JPanel();
 
-		ponerBoton(laminaBotones, "Dale!", new ActionListener() {
-			public void actionPerformed(ActionEvent evento) {
-				comienza_el_juego();
-			}
-		});
+		arranca1 = new JButton("Hilo1");
+		arranca1.addActionListener(new ActionListener() {
 
-		ponerBoton(laminaBotones, "Salir", new ActionListener() {
-			public void actionPerformed(ActionEvent evento) {
-				System.exit(0);
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				comienza_el_juego(e);
 			}
 		});
+		laminaBotones.add(arranca1);
 
-		// Dibuja el botón de detener
-		ponerBoton(laminaBotones, "Detener", new ActionListener() {
-			public void actionPerformed(ActionEvent evento) {
-				detener();
+		arranca2 = new JButton("Hilo2");
+		arranca2.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				comienza_el_juego(e);
 			}
 		});
+		laminaBotones.add(arranca2);
+
+		arranca3 = new JButton("Hilo3");
+		arranca3.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				comienza_el_juego(e);
+			}
+		});
+		laminaBotones.add(arranca3);
+
+		detener1 = new JButton("Deten1");
+		detener1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				detener(e);
+			}
+		});
+		laminaBotones.add(detener1);
+
+		detener2 = new JButton("Deten2");
+		detener2.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				detener(e);
+			}
+		});
+		laminaBotones.add(detener2);
+
+		detener3 = new JButton("Deten3");
+		detener3.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				detener(e);
+			}
+		});
+		laminaBotones.add(detener3);
 
 		add(laminaBotones, BorderLayout.SOUTH);
 	}
 
-	// Ponemos botones
-	public void ponerBoton(Container c, String titulo, ActionListener oyente) {
-		JButton boton = new JButton(titulo);
-		c.add(boton);
-		boton.addActionListener(oyente);
-	}
-
 	// A�ade pelota y la bota 1000 veces
-	public void comienza_el_juego() {
+	public void comienza_el_juego(ActionEvent e) {
 		Pelota pelota = new Pelota();
 		lamina.add(pelota);
 
 		Runnable r = new PelotaHilos(pelota, lamina);
-		hilo1 = new Thread(r);
-		hilo1.start();
+
+		// Arranca hilo de ejecucion segun el boton pulsado
+		if (e.getSource().equals(arranca1)) {
+			hilo1 = new Thread(r);
+			hilo1.start();
+		} else if (e.getSource().equals(arranca2)) {
+			hilo2 = new Thread(r);
+			hilo2.start();
+		} else if (e.getSource().equals(arranca3)) {
+			hilo3 = new Thread(r);
+			hilo3.start();
+		}
 	}
 
-	// Detiene éste hilo de ejecución
-	public void detener() {
+	// Detiene hilo de ejecucion segun el boton pulsado
+	public void detener(ActionEvent e) {
 		// hilo1.stop(); (obsoleto/deprected)
-		hilo1.interrupt();
+
+		if (e.getSource().equals(detener1)) {
+			hilo1.interrupt();
+		} else if (e.getSource().equals(detener2)) {
+			hilo2.interrupt();
+		} else if (e.getSource().equals(detener3)) {
+			hilo3.interrupt();
+		}
 	}
 }
