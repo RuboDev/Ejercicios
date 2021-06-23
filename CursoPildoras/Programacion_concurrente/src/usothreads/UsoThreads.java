@@ -14,29 +14,32 @@ public class UsoThreads {
 	}
 }
 
-class PelotaHilos implements Runnable{
+class PelotaHilos implements Runnable {
 	private Pelota pelota;
 	private Component componente;
 
-	public PelotaHilos(Pelota unaPelota, Component unComponente){
+	public PelotaHilos(Pelota unaPelota, Component unComponente) {
 		pelota = unaPelota;
 		componente = unComponente;
 	}
 
 	@Override
 	public void run() {
-		for (int i = 1; i <= 3000; i++) {
+		System.out.println("Estado del hilo al comenzar: "+Thread.currentThread().isInterrupted());
+		// for (int i = 1; i <= 3000; i++) {
+		// while (!Thread.interrupted()) {
+		while (!Thread.currentThread().isInterrupted()) {
 			pelota.mueve_pelota(componente.getBounds());
 			componente.paint(componente.getGraphics());
-			try {
-				Thread.sleep(4);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			/*
+			 * try { Thread.sleep(4); } catch (InterruptedException e) { //
+			 * e.printStackTrace();
+			 * System.out.println("Hilo bloqueado. Imposible su interrupción"); }
+			 */
 		}
+		System.out.println("Estado del hilo al terminar "+ Thread.currentThread().isInterrupted());
 	}
 }
-
 
 // Movimiento de la
 // pelota-----------------------------------------------------------------------------------------
@@ -110,6 +113,7 @@ class LaminaPelota extends JPanel {
 
 class MarcoRebote extends JFrame {
 	private LaminaPelota lamina;
+	Thread hilo1;
 
 	public MarcoRebote() {
 		setBounds(600, 300, 400, 350);
@@ -132,6 +136,13 @@ class MarcoRebote extends JFrame {
 			}
 		});
 
+		// Dibuja el botón de detener
+		ponerBoton(laminaBotones, "Detener", new ActionListener() {
+			public void actionPerformed(ActionEvent evento) {
+				detener();
+			}
+		});
+
 		add(laminaBotones, BorderLayout.SOUTH);
 	}
 
@@ -148,8 +159,13 @@ class MarcoRebote extends JFrame {
 		lamina.add(pelota);
 
 		Runnable r = new PelotaHilos(pelota, lamina);
-		Thread hilo1 = new Thread(r);
+		hilo1 = new Thread(r);
 		hilo1.start();
 	}
 
+	// Detiene éste hilo de ejecución
+	public void detener() {
+		// hilo1.stop(); (obsoleto/deprected)
+		hilo1.interrupt();
+	}
 }
