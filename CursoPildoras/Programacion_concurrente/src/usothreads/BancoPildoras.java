@@ -1,8 +1,8 @@
 package usothreads;
 
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+// import java.util.concurrent.locks.Condition;
+// import java.util.concurrent.locks.Lock;
+// import java.util.concurrent.locks.ReentrantLock;
 
 public class BancoPildoras {
     public static void main(String[] args) {
@@ -17,24 +17,25 @@ public class BancoPildoras {
 
 class BancoP {
     private final double[] cuentas;
-    private Lock bloqueoDeReentrada = new ReentrantLock();
-    private Condition saldoSuficiente;
+    //private Lock bloqueoDeReentrada = new ReentrantLock();
+    //private Condition saldoSuficiente;
 
     public BancoP() {
         cuentas = new double[100];
         for (int i = 0; i < cuentas.length; i++) {
             cuentas[i] = 2000;
         }
-        saldoSuficiente = bloqueoDeReentrada.newCondition();
+        //saldoSuficiente = bloqueoDeReentrada.newCondition();
     }
 
-    public void transferencia(int cuentaOrigen, int cuentaDestino, double cantidad) throws InterruptedException {
-        bloqueoDeReentrada.lock(); // bloquea la entrada del resto de hilos cuando uno lee esta instrucción.
+    public synchronized void transferencia(int cuentaOrigen, int cuentaDestino, double cantidad) throws InterruptedException {
+        //bloqueoDeReentrada.lock(); // bloquea la entrada del resto de hilos cuando uno lee esta instrucción.
 
-        try {
+        //try {
             while (cuentas[cuentaOrigen] < cantidad) {// evalua que el saldo no es inferor a la cantidad a transferir
-                saldoSuficiente.await();
+                //saldoSuficiente.await();
                 System.out.println("----------------------------------------------------------------------");
+                wait();
             }
 
             System.out.println(Thread.currentThread());
@@ -44,10 +45,11 @@ class BancoP {
 
             System.out.printf("Saldo total:%10.2f%n", getSaldoTotal());
 
-            saldoSuficiente.signalAll();
-        } finally {
-            bloqueoDeReentrada.unlock(); // desbloquea la entrada para el resto de hilos.
-        }
+            //saldoSuficiente.signalAll();
+        //} finally {
+            //bloqueoDeReentrada.unlock(); // desbloquea la entrada para el resto de hilos.
+        //}
+        notifyAll();
     }
 
     public double getSaldoTotal() {
