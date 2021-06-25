@@ -1,4 +1,5 @@
 import java.util.HashSet;
+import java.util.Iterator;
 
 public class CuentasUsuarios {
     public static void main(String[] args) {
@@ -15,8 +16,31 @@ public class CuentasUsuarios {
         clientesBanco.add(cl4);
         clientesBanco.add(cl5);
 
-        for (Cliente client : clientesBanco) {
-            System.out.println(client.getNombre() + " " + client.getN_cuenta() + " "+client.getSaldo());
+        // for (Cliente client : clientesBanco) {
+
+        // if (client.getNombre().equals("Julio Iglesias")) {
+        // clientesBanco.remove(client);
+        // }
+        // }
+
+        Iterator<Cliente> it = clientesBanco.iterator();
+        while (it.hasNext()) {
+            Cliente cli = it.next();
+            if (cli.getNombre().equals("Julio Iglesias")) {
+                it.remove();
+            }
         }
+
+        for (Cliente client : clientesBanco) {
+            System.out.println(client.getNombre() + " " + client.getN_cuenta() + " " + client.getSaldo());
+        }
+
+        /*
+         * Iterator<Cliente> it = clientesBanco.iterator(); while (it.hasNext()) {
+         * Cliente cli = it.next(); String nombre_cliente = cli.getNombre(); String
+         * n_cuenta = cli.getN_cuenta(); double saldo_cuenta = cli.getSaldo();
+         * 
+         * System.out.println(nombre_cliente + " " + n_cuenta+ " "+saldo_cuenta); }
+         */
     }
 }
