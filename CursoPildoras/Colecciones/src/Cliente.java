@@ -33,4 +33,29 @@ public class Cliente {
         this.saldo = saldo;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((n_cuenta == null) ? 0 : n_cuenta.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Cliente other = (Cliente) obj;
+        if (n_cuenta == null) {
+            if (other.n_cuenta != null)
+                return false;
+        } else if (!n_cuenta.equals(other.n_cuenta))
+            return false;
+        return true;
+    }
+
 }
