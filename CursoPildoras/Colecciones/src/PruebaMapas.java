@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Map;
 
 public class PruebaMapas {
     public static void main(String[] args) {
@@ -15,6 +16,13 @@ public class PruebaMapas {
 
         personal.put("148", new Empleado("Natalia"));
         System.out.println(personal);
+
+        // System.out.println(personal.entrySet());
+        for (Map.Entry<String, Empleado> entrada : personal.entrySet()) {
+            String clave = entrada.getKey();
+            Empleado valor = entrada.getValue();
+            System.out.println("Clave=" + clave + ", Valor=" + valor);
+        }
     }
 }
 
