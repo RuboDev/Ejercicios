@@ -20,8 +20,15 @@ public class PruebaTreeSet {
         // Articulo comparadorArticulos = new Articulo();
         // TreeSet<Articulo> ordenaArticulos2 = new TreeSet<Articulo>(comparadorArticulos);
 
-        ComparadorArticulos compara_article = new ComparadorArticulos();
-        TreeSet<Articulo> ordenaArticulos2 = new TreeSet<Articulo>(compara_article);
+        // ComparadorArticulos compara_article = new ComparadorArticulos();
+        TreeSet<Articulo> ordenaArticulos2 = new TreeSet<Articulo>(new Comparator<Articulo>() {
+            @Override
+            public int compare(Articulo o1, Articulo o2) {
+                String desc1 = o1.getDescripcion();
+                String desc2 = o2.getDescripcion();
+                return desc1.compareTo(desc2);
+            }
+        });
         ordenaArticulos2.add(primero);
         ordenaArticulos2.add(segundo);
         ordenaArticulos2.add(tercer);
@@ -48,17 +55,6 @@ class Articulo implements Comparable<Articulo> {
 
     public String getDescripcion() {
         return descripcion;
-    }
-
-}
-
-class ComparadorArticulos implements Comparator<Articulo> {
-
-    @Override
-    public int compare(Articulo o1, Articulo o2) {
-        String desc1 = o1.getDescripcion();
-        String desc2 = o2.getDescripcion();
-        return desc1.compareTo(desc2);
     }
 
 }
