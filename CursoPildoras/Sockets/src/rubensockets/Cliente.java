@@ -1,11 +1,6 @@
 package rubensockets;
 
 import javax.swing.*;
-import java.awt.event.*;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.Socket;
-import java.net.UnknownHostException;
 
 public class Cliente {
 	public static void main(String[] args) {
@@ -37,29 +32,6 @@ class LaminaMarcoCliente extends JPanel {
 		add(campo1);
 
 		miboton = new JButton("Enviar");
-		EnviaTexto oyenteBotonEnviar = new EnviaTexto();
-		miboton.addActionListener(oyenteBotonEnviar);
 		add(miboton);
-	}
-
-	private class EnviaTexto implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			System.out.println(campo1.getText());
-
-			try {
-				Socket misocket = new Socket("192.168.0.155", 9999);
-				DataOutputStream flujo_salida = new DataOutputStream(misocket.getOutputStream());
-				flujo_salida.writeUTF(campo1.getText());
-				flujo_salida.close();
-			} catch (UnknownHostException e1) {
-				e1.printStackTrace();
-			} catch (IOException e1) {
-				// e1.printStackTrace();
-				System.out.println(e1.getMessage());
-			}
-		}
-
 	}
 }
