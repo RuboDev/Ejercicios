@@ -1,3 +1,5 @@
+package rubensockets;
+
 import javax.swing.*;
 import java.awt.*;
 
