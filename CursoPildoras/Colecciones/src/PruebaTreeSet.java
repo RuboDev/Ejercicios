@@ -3,16 +3,9 @@ import java.util.TreeSet;
 
 public class PruebaTreeSet {
     public static void main(String[] args) {
-        // TreeSet<String> ordenaPersonas = new TreeSet<String>();
-        // ordenaPersonas.add("Sandra");
-        // ordenaPersonas.add("Amanda");
-        // ordenaPersonas.add("Diana");
-        // for (String s : ordenaPersonas) {
-        // System.out.println(s);
-        // }
 
         Articulo primero = new Articulo(1, "Primer artículo");
-        Articulo segundo = new Articulo(2, "Segundo artículo");
+        Articulo segundo = new Articulo(200, "Segundo artículo");
         Articulo tercer = new Articulo(3, "Tercer artículo");
 
         TreeSet<Articulo> ordenaArticulos = new TreeSet<Articulo>();
@@ -24,8 +17,11 @@ public class PruebaTreeSet {
             System.out.println(article.getDescripcion());
         }
 
-        Articulo comparadorArticulos = new Articulo();
-        TreeSet<Articulo> ordenaArticulos2 = new TreeSet<Articulo>(comparadorArticulos);
+        // Articulo comparadorArticulos = new Articulo();
+        // TreeSet<Articulo> ordenaArticulos2 = new TreeSet<Articulo>(comparadorArticulos);
+
+        ComparadorArticulos compara_article = new ComparadorArticulos();
+        TreeSet<Articulo> ordenaArticulos2 = new TreeSet<Articulo>(compara_article);
         ordenaArticulos2.add(primero);
         ordenaArticulos2.add(segundo);
         ordenaArticulos2.add(tercer);
@@ -36,13 +32,9 @@ public class PruebaTreeSet {
     }
 }
 
-class Articulo implements Comparable<Articulo>, Comparator<Articulo> {
+class Articulo implements Comparable<Articulo> {
     private int num_articulo;
     private String descripcion;
-
-    public Articulo() {
-
-    }
 
     public Articulo(int num, String descr) {
         num_articulo = num;
@@ -58,11 +50,15 @@ class Articulo implements Comparable<Articulo>, Comparator<Articulo> {
         return descripcion;
     }
 
+}
+
+class ComparadorArticulos implements Comparator<Articulo> {
+
     @Override
     public int compare(Articulo o1, Articulo o2) {
-        String descripcionA = o1.getDescripcion();
-        String descripcionB = o2.getDescripcion();
-        return descripcionA.compareTo(descripcionB);
+        String desc1 = o1.getDescripcion();
+        String desc2 = o2.getDescripcion();
+        return desc1.compareTo(desc2);
     }
 
 }
