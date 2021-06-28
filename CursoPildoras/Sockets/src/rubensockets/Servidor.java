@@ -2,6 +2,10 @@ package rubensockets;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 public class Servidor {
 	public static void main(String[] args) {
@@ -10,7 +14,7 @@ public class Servidor {
 	}
 }
 
-class MarcoServidor extends JFrame {
+class MarcoServidor extends JFrame implements Runnable {
 	private JTextArea areatexto;
 
 	public MarcoServidor() {
@@ -23,5 +27,23 @@ class MarcoServidor extends JFrame {
 		add(milamina);
 
 		setVisible(true);
+
+		Thread t = new Thread(this);
+		t.start();
+	}
+
+	@Override
+	public void run() {
+		// System.out.println("Estoy a la escucha");
+		try {
+			ServerSocket servidor = new ServerSocket(9999);
+			Socket misocket = servidor.accept();
+			DataInputStream flujo_entrada = new DataInputStream(misocket.getInputStream());
+			String msg_texto = flujo_entrada.readUTF();
+			areatexto.append("\n" + msg_texto);
+			misocket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
