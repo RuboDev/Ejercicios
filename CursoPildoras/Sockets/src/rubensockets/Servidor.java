@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -51,6 +52,11 @@ class MarcoServidor extends JFrame implements Runnable {
 				mensaje = paquete_recibido.getMensaje();
 
 				areatexto.append("\n" + nick + ": " + mensaje + " para " + ip);
+
+				Socket enviaDestinatario = new Socket(ip, 9090);
+				ObjectOutputStream flujo_salida = new ObjectOutputStream(enviaDestinatario.getOutputStream());
+				flujo_salida.writeObject(paquete_recibido);
+				enviaDestinatario.close();
 
 				misocket.close();
 				servidor.close();
