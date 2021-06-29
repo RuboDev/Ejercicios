@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -26,12 +28,22 @@ class MarcoCliente extends JFrame {
 }
 
 class LaminaMarcoCliente extends JPanel {
-	private JTextField campo1;
+	private JTextField campo1, nick, ip;
 	private JButton miboton;
+	private JTextArea campochat;
 
 	public LaminaMarcoCliente() {
-		JLabel texto = new JLabel("CLIENTE");
+		nick = new JTextField(5);
+		add(nick);
+
+		JLabel texto = new JLabel("-CHAT-");
 		add(texto);
+
+		ip = new JTextField(9);
+		add(ip);
+
+		campochat = new JTextArea(12, 20);
+		add(campochat);
 
 		campo1 = new JTextField(20);
 		add(campo1);
@@ -50,10 +62,20 @@ class LaminaMarcoCliente extends JPanel {
 
 			try {
 				Socket misocket = new Socket("", 9999);
-				DataOutputStream flujo_salida = new DataOutputStream(misocket.getOutputStream());
-				flujo_salida.writeUTF(campo1.getText());
-				flujo_salida.close();
+				PaqueteEnvio datos = new PaqueteEnvio();
+				datos.setNick(nick.getText());
+				datos.setIp(ip.getText());
+				datos.setMensaje(campo1.getText());
+
+				ObjectOutputStream flujo_objetos = new ObjectOutputStream(misocket.getOutputStream());
+				flujo_objetos.writeObject(datos);
 				misocket.close();
+				/*
+				 * DataOutputStream flujo_salida = new
+				 * DataOutputStream(misocket.getOutputStream());
+				 * flujo_salida.writeUTF(campo1.getText()); flujo_salida.close();
+				 * misocket.close();
+				 */
 			} catch (UnknownHostException e1) {
 				e1.printStackTrace();
 			} catch (IOException e1) {
@@ -63,4 +85,33 @@ class LaminaMarcoCliente extends JPanel {
 		}
 
 	}
+}
+
+class PaqueteEnvio implements Serializable {
+	private String nick, ip, mensaje;
+
+	public String getNick() {
+		return nick;
+	}
+
+	public void setNick(String nick) {
+		this.nick = nick;
+	}
+
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public String getMensaje() {
+		return mensaje;
+	}
+
+	public void setMensaje(String mensaje) {
+		this.mensaje = mensaje;
+	}
+
 }
