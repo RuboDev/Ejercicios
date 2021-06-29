@@ -79,6 +79,7 @@ class LaminaMarcoCliente extends JPanel implements Runnable {
 
 				campochat.append("\n" + nick + ": " + mensaje + " para " + ip);
 
+				flujo_entrada.close();
 				misocket.close();
 				servidor.close();
 			}
@@ -105,6 +106,8 @@ class LaminaMarcoCliente extends JPanel implements Runnable {
 
 				ObjectOutputStream flujo_objetos = new ObjectOutputStream(misocket.getOutputStream());
 				flujo_objetos.writeObject(datos);
+
+				flujo_objetos.close();
 				misocket.close();
 			} catch (UnknownHostException e1) {
 				e1.printStackTrace();

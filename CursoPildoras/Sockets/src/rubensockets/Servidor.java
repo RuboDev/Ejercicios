@@ -35,7 +35,7 @@ class MarcoServidor extends JFrame implements Runnable {
 
 	@Override
 	public void run() {
-		// System.out.println("Estoy a la escucha");
+		
 		try {
 			String nick, ip, mensaje;
 			PaqueteEnvio paquete_recibido;
@@ -53,9 +53,13 @@ class MarcoServidor extends JFrame implements Runnable {
 
 				areatexto.append("\n" + nick + ": " + mensaje + " para " + ip);
 
+				flujo_entrada.close();
+
 				Socket enviaDestinatario = new Socket(ip, 9090);
 				ObjectOutputStream flujo_salida = new ObjectOutputStream(enviaDestinatario.getOutputStream());
 				flujo_salida.writeObject(paquete_recibido);
+
+				flujo_salida.close();
 				enviaDestinatario.close();
 
 				misocket.close();
