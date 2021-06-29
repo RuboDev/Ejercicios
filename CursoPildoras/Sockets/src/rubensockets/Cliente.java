@@ -3,8 +3,10 @@ package rubensockets;
 import javax.swing.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -26,7 +28,7 @@ class MarcoCliente extends JFrame {
 	}
 }
 
-class LaminaMarcoCliente extends JPanel {
+class LaminaMarcoCliente extends JPanel implements Runnable {
 	private JTextField campo1, nick, ip;
 	private JButton miboton;
 	private JTextArea campochat;
@@ -51,6 +53,41 @@ class LaminaMarcoCliente extends JPanel {
 		EnviaTexto oyenteBotonEnviar = new EnviaTexto();
 		miboton.addActionListener(oyenteBotonEnviar);
 		add(miboton);
+
+		Thread t = new Thread(this);
+		t.start();
+	}
+
+	@Override
+	public void run() {
+		System.out.println("Estoy a la escucha");
+
+		try {
+			String nick, ip, mensaje;
+			PaqueteEnvio paquete_recibido;
+
+			while (true) {
+				ServerSocket servidor = new ServerSocket(9090);
+				Socket misocket = servidor.accept();
+
+				ObjectInputStream flujo_entrada = new ObjectInputStream(misocket.getInputStream());
+				paquete_recibido = (PaqueteEnvio) flujo_entrada.readObject();
+
+				nick = paquete_recibido.getNick();
+				ip = paquete_recibido.getIp();
+				mensaje = paquete_recibido.getMensaje();
+
+				campochat.append("\n" + nick + ": " + mensaje + " para " + ip);
+
+				misocket.close();
+				servidor.close();
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private class EnviaTexto implements ActionListener {
