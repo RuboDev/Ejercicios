@@ -2,7 +2,6 @@ package rubensockets;
 
 import javax.swing.*;
 import java.awt.event.*;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -70,16 +69,9 @@ class LaminaMarcoCliente extends JPanel {
 				ObjectOutputStream flujo_objetos = new ObjectOutputStream(misocket.getOutputStream());
 				flujo_objetos.writeObject(datos);
 				misocket.close();
-				/*
-				 * DataOutputStream flujo_salida = new
-				 * DataOutputStream(misocket.getOutputStream());
-				 * flujo_salida.writeUTF(campo1.getText()); flujo_salida.close();
-				 * misocket.close();
-				 */
 			} catch (UnknownHostException e1) {
 				e1.printStackTrace();
 			} catch (IOException e1) {
-				// e1.printStackTrace();
 				System.out.println(e1.getMessage());
 			}
 		}
