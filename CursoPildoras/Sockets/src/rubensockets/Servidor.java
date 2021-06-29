@@ -36,14 +36,15 @@ class MarcoServidor extends JFrame implements Runnable {
 	public void run() {
 		// System.out.println("Estoy a la escucha");
 		try {
-			ServerSocket servidor = new ServerSocket(9999);
 
 			while (true) {
+				ServerSocket servidor = new ServerSocket(9999);
 				Socket misocket = servidor.accept();
 				DataInputStream flujo_entrada = new DataInputStream(misocket.getInputStream());
 				String msg_texto = flujo_entrada.readUTF();
 				areatexto.append("\n" + msg_texto);
 				misocket.close();
+				servidor.close();
 			}
 
 		} catch (IOException e) {
