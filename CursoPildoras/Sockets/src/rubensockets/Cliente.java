@@ -77,7 +77,7 @@ class LaminaMarcoCliente extends JPanel implements Runnable {
 				ip = paquete_recibido.getIp();
 				mensaje = paquete_recibido.getMensaje();
 
-				campochat.append("\n" + nick + ": " + mensaje + " para " + ip);
+				campochat.append("\n" + nick + ": " + mensaje);
 
 				flujo_entrada.close();
 				misocket.close();
