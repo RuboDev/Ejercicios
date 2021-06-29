@@ -95,7 +95,8 @@ class LaminaMarcoCliente extends JPanel implements Runnable {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.out.println(campo1.getText());
+			// System.out.println(campo1.getText());
+			campochat.append("\n" + "Tú: " + campo1.getText());
 
 			try {
 				Socket misocket = new Socket("", 9999);
