@@ -25,8 +25,27 @@ class MarcoCliente extends JFrame {
 		add(milamina);
 
 		setVisible(true);
+		addWindowListener(new UserOnlineEnvio());
 	}
 }
+
+// -----------ENVIO SEÑAL ONLINE----------------------
+class UserOnlineEnvio extends WindowAdapter {
+	public void windowOpened(WindowEvent e) {
+		try {
+			Socket socketUserOn = new Socket("", 9999);
+			PaqueteEnvio datosUserOn = new PaqueteEnvio();
+			// datosUserOn.setIp(socketUserOn.getInetAddress().getHostAddress());
+			// datosUserOn.setNick();
+			datosUserOn.setMensaje("Online");
+			ObjectOutputStream flujo_salida = new ObjectOutputStream(socketUserOn.getOutputStream());
+			flujo_salida.writeObject(datosUserOn);
+		} catch (Exception e2) {
+			e2.getStackTrace();
+		}
+	}
+}
+// --------------------------------------------------
 
 class LaminaMarcoCliente extends JPanel implements Runnable {
 	private JTextField campo1;
