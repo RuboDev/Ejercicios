@@ -24,8 +24,9 @@ class MarcoCliente extends JFrame {
 		LaminaMarcoCliente milamina = new LaminaMarcoCliente();
 		add(milamina);
 
-		setVisible(true);
 		addWindowListener(new UserOnlineEnvio());
+
+		setVisible(true);
 	}
 }
 
