@@ -29,18 +29,28 @@ class MarcoCliente extends JFrame {
 }
 
 class LaminaMarcoCliente extends JPanel implements Runnable {
-	private JTextField campo1, nick, ip;
+	private JTextField campo1;
+	private JComboBox<String> ip;
+	private JLabel nick, n_nick;
 	private JButton miboton;
 	private JTextArea campochat;
 
 	public LaminaMarcoCliente() {
-		nick = new JTextField(5);
+		String strnick = JOptionPane.showInputDialog("Introduzca su nick");
+
+		n_nick = new JLabel("Nick: ");
+		add(n_nick);
+
+		nick = new JLabel(strnick);
 		add(nick);
 
-		JLabel texto = new JLabel("-CHAT-");
+		JLabel texto = new JLabel("Online: ");
 		add(texto);
 
-		ip = new JTextField(9);
+		ip = new JComboBox<String>();
+		ip.addItem("Usuario 1");
+		ip.addItem("Usuario 2");
+		ip.addItem("Usuario 3");
 		add(ip);
 
 		campochat = new JTextArea(12, 20);
@@ -102,7 +112,7 @@ class LaminaMarcoCliente extends JPanel implements Runnable {
 				Socket misocket = new Socket("", 9999);
 				PaqueteEnvio datos = new PaqueteEnvio();
 				datos.setNick(nick.getText());
-				datos.setIp(ip.getText());
+				datos.setIp((String) ip.getSelectedItem());
 				datos.setMensaje(campo1.getText());
 
 				ObjectOutputStream flujo_objetos = new ObjectOutputStream(misocket.getOutputStream());
