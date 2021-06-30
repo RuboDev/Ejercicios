@@ -111,7 +111,10 @@ class LaminaMarcoCliente extends JPanel implements Runnable {
 
 					campochat.append("\n" + nick + ": " + mensaje);
 				} else {
-					ArrayList<String> usersOnList = paquete_recibido.getIps();
+					ArrayList<String> usersOnList = new ArrayList<String>();
+					usersOnList = paquete_recibido.getIps();
+
+					ipBox.removeAllItems();
 
 					for (String userip : usersOnList) {
 						ipBox.addItem(userip);
