@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 public class Cliente {
 	public static void main(String[] args) {
@@ -51,7 +52,7 @@ class UserOnlineEnvio extends WindowAdapter {
 
 class LaminaMarcoCliente extends JPanel implements Runnable {
 	private JTextField campo1;
-	private JComboBox<String> ip;
+	private JComboBox<String> ipBox;
 	private JLabel nick, n_nick;
 	private JButton miboton;
 	private JTextArea campochat;
@@ -68,11 +69,8 @@ class LaminaMarcoCliente extends JPanel implements Runnable {
 		JLabel texto = new JLabel("Online: ");
 		add(texto);
 
-		ip = new JComboBox<String>();
-		ip.addItem("Usuario 1");
-		ip.addItem("Usuario 2");
-		ip.addItem("Usuario 3");
-		add(ip);
+		ipBox = new JComboBox<String>();
+		add(ipBox);
 
 		campochat = new JTextArea(12, 20);
 		add(campochat);
@@ -102,13 +100,24 @@ class LaminaMarcoCliente extends JPanel implements Runnable {
 				Socket misocket = servidor.accept();
 
 				ObjectInputStream flujo_entrada = new ObjectInputStream(misocket.getInputStream());
+
 				paquete_recibido = (PaqueteEnvio) flujo_entrada.readObject();
 
-				nick = paquete_recibido.getNick();
-				ip = paquete_recibido.getIp();
-				mensaje = paquete_recibido.getMensaje();
+				if (paquete_recibido.getIps() == null) {
 
-				campochat.append("\n" + nick + ": " + mensaje);
+					nick = paquete_recibido.getNick();
+					ip = paquete_recibido.getIp();
+					mensaje = paquete_recibido.getMensaje();
+
+					campochat.append("\n" + nick + ": " + mensaje);
+				} else {
+
+					ArrayList<String> usersOnList = paquete_recibido.getIps();
+
+					for (String userip : usersOnList) {
+						ipBox.addItem(userip);
+					}
+				}
 
 				flujo_entrada.close();
 				misocket.close();
@@ -126,14 +135,14 @@ class LaminaMarcoCliente extends JPanel implements Runnable {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// System.out.println(campo1.getText());
+
 			campochat.append("\n" + "Tú: " + campo1.getText());
 
 			try {
 				Socket misocket = new Socket("", 9999);
 				PaqueteEnvio datos = new PaqueteEnvio();
 				datos.setNick(nick.getText());
-				datos.setIp((String) ip.getSelectedItem());
+				datos.setIp((String) ipBox.getSelectedItem());
 				datos.setMensaje(campo1.getText());
 
 				ObjectOutputStream flujo_objetos = new ObjectOutputStream(misocket.getOutputStream());
@@ -146,6 +155,7 @@ class LaminaMarcoCliente extends JPanel implements Runnable {
 			} catch (IOException e1) {
 				System.out.println(e1.getMessage());
 			}
+			campo1.setText("");
 		}
 
 	}
@@ -153,6 +163,15 @@ class LaminaMarcoCliente extends JPanel implements Runnable {
 
 class PaqueteEnvio implements Serializable {
 	private String nick, ip, mensaje;
+	private ArrayList<String> ips;
+
+	public ArrayList<String> getIps() {
+		return ips;
+	}
+
+	public void setIps(ArrayList<String> ips) {
+		this.ips = ips;
+	}
 
 	public String getNick() {
 		return nick;
