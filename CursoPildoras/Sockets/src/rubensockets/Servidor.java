@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class Servidor {
 	public static void main(String[] args) {
@@ -40,6 +41,7 @@ class MarcoServidor extends JFrame implements Runnable {
 		try {
 			String nick, ip, mensaje;
 			PaqueteEnvio paquete_recibido;
+			ArrayList<String> usersOnlineList = new ArrayList<String>();
 
 			while (true) {
 				ServerSocket servidor = new ServerSocket(9999);
@@ -68,7 +70,22 @@ class MarcoServidor extends JFrame implements Runnable {
 					String ipClientOn = direccion.getHostAddress();
 					System.out.println("Online: " + ipClientOn);
 					// ----------------------------------------------------------------
+
+					usersOnlineList.add(ipClientOn); // añade ip del cliente conectado a la lista.
+
+					// ------ENVIA LISTA DE IPS
+					for (String ipAddr : usersOnlineList) {
+						Socket enviaDestinatario = new Socket(ipAddr, 9090);
+						ObjectOutputStream flujo_salida = new ObjectOutputStream(enviaDestinatario.getOutputStream());
+						PaqueteEnvio paqueteLista = new PaqueteEnvio();
+						paqueteLista.setIps(usersOnlineList);
+						flujo_salida.writeObject(paqueteLista);
+
+						flujo_salida.close();
+						enviaDestinatario.close();
+					}
 				}
+
 				flujo_entrada.close();
 				misocket.close();
 				servidor.close();
