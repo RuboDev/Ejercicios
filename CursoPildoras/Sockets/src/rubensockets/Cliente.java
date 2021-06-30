@@ -38,7 +38,7 @@ class UserOnlineEnvio extends WindowAdapter {
 			PaqueteEnvio datosUserOn = new PaqueteEnvio();
 			// datosUserOn.setIp(socketUserOn.getInetAddress().getHostAddress());
 			// datosUserOn.setNick();
-			datosUserOn.setMensaje("Online");
+			datosUserOn.setMensaje("!@!-Online-!@!");
 			ObjectOutputStream flujo_salida = new ObjectOutputStream(socketUserOn.getOutputStream());
 			flujo_salida.writeObject(datosUserOn);
 			socketUserOn.close();

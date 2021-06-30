@@ -52,7 +52,7 @@ class MarcoServidor extends JFrame implements Runnable {
 				ip = paquete_recibido.getIp();
 				mensaje = paquete_recibido.getMensaje();
 
-				if (!mensaje.equals("Online")) {
+				if (!mensaje.equals("!@!-Online-!@!")) {
 					areatexto.append("\n" + nick + ": " + mensaje + " para " + ip);
 
 					Socket enviaDestinatario = new Socket(ip, 9090);
