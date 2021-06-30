@@ -90,7 +90,7 @@ class LaminaMarcoCliente extends JPanel implements Runnable {
 
 	@Override
 	public void run() {
-		//System.out.println("Estoy a la escucha");
+		// System.out.println("Estoy a la escucha");
 
 		try {
 			String nick, mensaje;
@@ -106,7 +106,7 @@ class LaminaMarcoCliente extends JPanel implements Runnable {
 
 				if (paquete_recibido.getIps() == null) {
 					nick = paquete_recibido.getNick();
-					//ip = paquete_recibido.getIp();
+					// ip = paquete_recibido.getIp();
 					mensaje = paquete_recibido.getMensaje();
 
 					campochat.append("\n" + nick + ": " + mensaje);
@@ -139,7 +139,7 @@ class LaminaMarcoCliente extends JPanel implements Runnable {
 
 			try {
 				Socket misocket = new Socket("", 9999);
-				
+
 				PaqueteEnvio datos = new PaqueteEnvio();
 				datos.setNick(nick.getText());
 				datos.setIp((String) ipBox.getSelectedItem());
