@@ -36,12 +36,13 @@ class UserOnlineEnvio extends WindowAdapter {
 	public void windowOpened(WindowEvent e) {
 		try {
 			Socket socketUserOn = new Socket("", 9999);
+
 			PaqueteEnvio datosUserOn = new PaqueteEnvio();
-			// datosUserOn.setIp(socketUserOn.getInetAddress().getHostAddress());
-			// datosUserOn.setNick();
 			datosUserOn.setMensaje("!@!-Online-!@!");
+
 			ObjectOutputStream flujo_salida = new ObjectOutputStream(socketUserOn.getOutputStream());
 			flujo_salida.writeObject(datosUserOn);
+
 			socketUserOn.close();
 		} catch (Exception e2) {
 			e2.getStackTrace();
@@ -89,10 +90,10 @@ class LaminaMarcoCliente extends JPanel implements Runnable {
 
 	@Override
 	public void run() {
-		System.out.println("Estoy a la escucha");
+		//System.out.println("Estoy a la escucha");
 
 		try {
-			String nick, ip, mensaje;
+			String nick, mensaje;
 			PaqueteEnvio paquete_recibido;
 
 			while (true) {
@@ -104,14 +105,12 @@ class LaminaMarcoCliente extends JPanel implements Runnable {
 				paquete_recibido = (PaqueteEnvio) flujo_entrada.readObject();
 
 				if (paquete_recibido.getIps() == null) {
-
 					nick = paquete_recibido.getNick();
-					ip = paquete_recibido.getIp();
+					//ip = paquete_recibido.getIp();
 					mensaje = paquete_recibido.getMensaje();
 
 					campochat.append("\n" + nick + ": " + mensaje);
 				} else {
-
 					ArrayList<String> usersOnList = paquete_recibido.getIps();
 
 					for (String userip : usersOnList) {
@@ -140,6 +139,7 @@ class LaminaMarcoCliente extends JPanel implements Runnable {
 
 			try {
 				Socket misocket = new Socket("", 9999);
+				
 				PaqueteEnvio datos = new PaqueteEnvio();
 				datos.setNick(nick.getText());
 				datos.setIp((String) ipBox.getSelectedItem());
