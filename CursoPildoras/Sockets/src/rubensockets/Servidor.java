@@ -45,12 +45,6 @@ class MarcoServidor extends JFrame implements Runnable {
 				ServerSocket servidor = new ServerSocket(9999);
 				Socket misocket = servidor.accept();
 
-				// -----------DETECTA USUARIOS ONLINE------------------------------
-				InetAddress direccion = misocket.getInetAddress();
-				String ipClientOn = direccion.getHostAddress();
-				System.out.println("Online: " + ipClientOn);
-				// ----------------------------------------------------------------
-
 				ObjectInputStream flujo_entrada = new ObjectInputStream(misocket.getInputStream());
 				paquete_recibido = (PaqueteEnvio) flujo_entrada.readObject();
 
@@ -58,17 +52,24 @@ class MarcoServidor extends JFrame implements Runnable {
 				ip = paquete_recibido.getIp();
 				mensaje = paquete_recibido.getMensaje();
 
-				areatexto.append("\n" + nick + ": " + mensaje + " para " + ip);
+				if (!mensaje.equals("Online")) {
+					areatexto.append("\n" + nick + ": " + mensaje + " para " + ip);
 
+					Socket enviaDestinatario = new Socket(ip, 9090);
+					ObjectOutputStream flujo_salida = new ObjectOutputStream(enviaDestinatario.getOutputStream());
+					flujo_salida.writeObject(paquete_recibido);
+
+					flujo_salida.close();
+					enviaDestinatario.close();
+
+				} else {
+					// -----------DETECTA USUARIOS ONLINE------------------------------
+					InetAddress direccion = misocket.getInetAddress();
+					String ipClientOn = direccion.getHostAddress();
+					System.out.println("Online: " + ipClientOn);
+					// ----------------------------------------------------------------
+				}
 				flujo_entrada.close();
-
-				Socket enviaDestinatario = new Socket(ip, 9090);
-				ObjectOutputStream flujo_salida = new ObjectOutputStream(enviaDestinatario.getOutputStream());
-				flujo_salida.writeObject(paquete_recibido);
-
-				flujo_salida.close();
-				enviaDestinatario.close();
-
 				misocket.close();
 				servidor.close();
 			}
