@@ -40,6 +40,7 @@ class UserOnlineEnvio extends WindowAdapter {
 			datosUserOn.setMensaje("Online");
 			ObjectOutputStream flujo_salida = new ObjectOutputStream(socketUserOn.getOutputStream());
 			flujo_salida.writeObject(datosUserOn);
+			socketUserOn.close();
 		} catch (Exception e2) {
 			e2.getStackTrace();
 		}
