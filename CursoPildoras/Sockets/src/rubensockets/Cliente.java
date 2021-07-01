@@ -20,7 +20,7 @@ public class Cliente {
 
 class MarcoCliente extends JFrame {
 	public MarcoCliente() {
-		setBounds(600, 300, 280, 350);
+		setBounds(600, 300, 350, 300);
 
 		LaminaMarcoCliente milamina = new LaminaMarcoCliente();
 		add(milamina);
@@ -43,6 +43,24 @@ class UserOnlineEnvio extends WindowAdapter {
 			ObjectOutputStream flujo_salida = new ObjectOutputStream(socketUserOn.getOutputStream());
 			flujo_salida.writeObject(datosUserOn);
 
+			flujo_salida.close();
+			socketUserOn.close();
+		} catch (Exception e2) {
+			e2.getStackTrace();
+		}
+	}
+    
+	public void windowClosing(WindowEvent e){// ---- Envia datos al server cuando cerramos el cliente
+		try {
+			Socket socketUserOn = new Socket("", 9999);
+
+			PaqueteEnvio datosUserOn = new PaqueteEnvio();
+			datosUserOn.setMensaje("!@!-Offline-!@!");
+
+			ObjectOutputStream flujo_salida = new ObjectOutputStream(socketUserOn.getOutputStream());
+			flujo_salida.writeObject(datosUserOn);
+
+			flujo_salida.close();
 			socketUserOn.close();
 		} catch (Exception e2) {
 			e2.getStackTrace();

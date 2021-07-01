@@ -55,14 +55,36 @@ class MarcoServidor extends JFrame implements Runnable {
 				mensaje = paquete_recibido.getMensaje();
 
 				if (!mensaje.equals("!@!-Online-!@!")) {
-					areatexto.append("\n" + nick + ": " + mensaje + " para " + ip);
+					if (mensaje.equals("!@!-Offline-!@!")) {
+						// ----- To know adress of use gone offline
+						InetAddress direccion = misocket.getInetAddress();
+						String ipClientOn = direccion.getHostAddress();
+						// ----------------------------------------------------------------
 
-					Socket enviaDestinatario = new Socket(ip, 9090);
-					ObjectOutputStream flujo_salida = new ObjectOutputStream(enviaDestinatario.getOutputStream());
-					flujo_salida.writeObject(paquete_recibido);
+						usersOnlineList.remove(ipClientOn); // quita de la lista la ip del cliente que desconectó
 
-					flujo_salida.close();
-					enviaDestinatario.close();
+						// ------ENVIA LISTA DE IPS
+						for (String ipAddr : usersOnlineList) {
+							Socket enviaDestinatario = new Socket(ipAddr, 9090);
+							ObjectOutputStream flujo_salida = new ObjectOutputStream(enviaDestinatario.getOutputStream());
+							PaqueteEnvio paqueteLista = new PaqueteEnvio();
+							paqueteLista.setIps(usersOnlineList);
+							flujo_salida.writeObject(paqueteLista);
+
+							flujo_salida.close();
+							enviaDestinatario.close();
+						}
+
+					} else {
+						areatexto.append("\n" + nick + ": " + mensaje + " para " + ip);
+
+						Socket enviaDestinatario = new Socket(ip, 9090);
+						ObjectOutputStream flujo_salida = new ObjectOutputStream(enviaDestinatario.getOutputStream());
+						flujo_salida.writeObject(paquete_recibido);
+
+						flujo_salida.close();
+						enviaDestinatario.close();
+					}
 
 				} else {
 					// -----------DETECTA USUARIOS ONLINE------------------------------
