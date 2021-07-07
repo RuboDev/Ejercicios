@@ -18,6 +18,9 @@ public class Aplicacion_Consulta {
 }
 
 class MarcoAplicacion extends JFrame {
+    JComboBox<String> seccion;
+    JComboBox<String> pais;
+
     public MarcoAplicacion() {
         setBounds(600, 400, 600, 600);
         setLayout(new BorderLayout());
@@ -25,11 +28,11 @@ class MarcoAplicacion extends JFrame {
         // Panel Menus
         JPanel menus = new JPanel();
 
-        JComboBox<String> seccion = new JComboBox<String>();
+        seccion = new JComboBox<String>();
         seccion.addItem("Todos");
         seccion.setEditable(false);
 
-        JComboBox<String> pais = new JComboBox<String>();
+        pais = new JComboBox<String>();
         pais.addItem("Todos");
         pais.setEditable(false);
 
@@ -49,21 +52,37 @@ class MarcoAplicacion extends JFrame {
         add(btnConsulta, BorderLayout.SOUTH);
     }
 
+    // Procedimiento para cargar de items los comboboxes de la UI.
+    // Se cargarán las distintas secciones de productos y los
+    // paises de origen en orden alfanumerico.
     public void cargarComboBoxes() {
         try {
             // 1. Crear conexión
-            Connection miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/prueba", "root",
-                    "");
+            Connection miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/prueba", "root", "");
 
-            // 2. Crear Statement 
+            // 2. Crear Statement
             Statement miSentencia = miConexion.createStatement();
 
-            // 4.1 Ejecutar y recorrer consulta 1
-            ResultSet rs = miSentencia.executeQuery("SELECT SECCIÓN, PAÍSDEORIGEN FROM PRODUCTOS");
-            while (rs.next()) {
-                System.out.println(rs.getString(1) + " " + rs.getString(2));
+            // Ejecutar y recorrer consulta 1 - 1ª Ocurrencia Seccion en orden
+            ResultSet rsSeccion = miSentencia.executeQuery("SELECT DISTINCT SECCIÓN FROM PRODUCTOS ORDER BY SECCIÓN");
+
+            while (rsSeccion.next()) {
+                seccion.addItem(rsSeccion.getString(1));
             }
-            rs.close();
+            rsSeccion.close();
+
+            // Ejecutar y recorrer consulta 2 - 1ª Ocurrencia Pais en orden
+            ResultSet rsPais = miSentencia
+                    .executeQuery("SELECT DISTINCT PAÍSDEORIGEN FROM PRODUCTOS ORDER BY PAÍSDEORIGEN");
+
+            while (rsPais.next()) {
+                pais.addItem(rsPais.getString(1));
+            }
+            rsPais.close();
+
+            miSentencia.close();
+            miConexion.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
