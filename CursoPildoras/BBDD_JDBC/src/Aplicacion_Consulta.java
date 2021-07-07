@@ -7,6 +7,7 @@ import java.sql.Statement;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import java.awt.event.*;
@@ -31,15 +32,22 @@ class MarcoAplicacion extends JFrame {
         // Panel Menus
         JPanel menus = new JPanel();
 
+        JLabel etiqSeccion = new JLabel("Sección comercial:");
+
         seccion = new JComboBox<String>();
         seccion.addItem("Todos");
         seccion.setEditable(false);
+
+        JLabel etiqPais = new JLabel("País de origen:");
 
         pais = new JComboBox<String>();
         pais.addItem("Todos");
         pais.setEditable(false);
 
+        menus.add(etiqSeccion);
         menus.add(seccion);
+
+        menus.add(etiqPais);
         menus.add(pais);
 
         add(menus, BorderLayout.NORTH);
