@@ -12,7 +12,7 @@ public class Conexion {
 
     public Connection dameConexion() {
         try {
-            miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/prueba", "root", "");
+            miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/prueba", "phpmyadmin", ".admin1234.");
         } catch (Exception e) {
             e.printStackTrace();
         }

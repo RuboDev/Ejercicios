@@ -8,32 +8,21 @@ import controlador.Conexion;
 
 public class CargaSecciones {
     private Conexion miConexion;
-    private ResultSet rs;
+    public ResultSet rs;
 
     public CargaSecciones() {
         miConexion = new Conexion();
     }
 
-    public String ejecutaConsultas() {
-        Productos miProducto = null;
+    public void ejecutaConsultas() {
         Connection accesoBBDD = miConexion.dameConexion();
 
         try {
             Statement stateSecciones = accesoBBDD.createStatement();
 
             rs = stateSecciones.executeQuery("SELECT DISTINCT SECCIÓN FROM PRODUCTOS ORDER BY SECCIÓN");
-
-            while (rs.next()) {
-                miProducto = new Productos();
-                miProducto.setSeccion(rs.getString(1));
-                return miProducto.getSeccion();
-            }
-            rs.close();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return miProducto.getSeccion();
     }
 }
