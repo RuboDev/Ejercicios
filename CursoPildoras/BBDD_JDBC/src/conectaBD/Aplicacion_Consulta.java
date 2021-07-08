@@ -1,3 +1,5 @@
+package conectaBD;
+
 import java.awt.BorderLayout;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -26,7 +28,7 @@ class MarcoAplicacion extends JFrame {
     JTextArea areaTexto;
 
     public MarcoAplicacion() {
-        setBounds(600, 400, 600, 600);
+        setBounds(600, 400, 600, 700);
         setLayout(new BorderLayout());
 
         // Panel Menus

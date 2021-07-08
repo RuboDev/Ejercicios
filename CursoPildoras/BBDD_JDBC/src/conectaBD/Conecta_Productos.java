@@ -1,3 +1,5 @@
+package conectaBD;
+
 import java.sql.*;
 
 public class Conecta_Productos {
