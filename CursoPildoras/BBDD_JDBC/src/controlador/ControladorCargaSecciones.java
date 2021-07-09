@@ -1,6 +1,7 @@
 package controlador;
 
 import java.awt.event.*;
+import java.sql.ResultSet;
 
 import modelo.CargaSecciones;
 import vista.Marco_Aplicacion2;
@@ -15,10 +16,10 @@ public class ControladorCargaSecciones extends WindowAdapter {
 
     public void windowOpened(WindowEvent e) {
 
-        chargeSecciones.ejecutaConsultas();
+        ResultSet rs = chargeSecciones.ejecutaConsultas();
         try {
-            while (chargeSecciones.rs.next()) {
-                elmarco.seccion.addItem(chargeSecciones.rs.getString(1));
+            while (rs.next()) {
+                elmarco.seccion.addItem(rs.getString(1));
             }
         } catch (Exception e2) {
             e2.printStackTrace();

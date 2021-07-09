@@ -12,15 +12,16 @@ public class CargaSecciones {
         miConexion = new Conexion();
     }
 
-    public void ejecutaConsultas() {
+    public ResultSet ejecutaConsultas() {
         Connection accesoBBDD = miConexion.dameConexion();
 
         try {
             Statement stateSecciones = accesoBBDD.createStatement();
 
-            rs = stateSecciones.executeQuery("SELECT DISTINCT SECCIÓN FROM PRODUCTOS ORDER BY SECCIÓN");
+            return rs = stateSecciones.executeQuery("SELECT DISTINCT SECCIÓN FROM PRODUCTOS ORDER BY SECCIÓN");
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 }
