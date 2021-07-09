@@ -9,11 +9,12 @@ import javax.swing.JTextArea;
 import java.awt.BorderLayout;
 
 import controlador.ControladorCargaMenus;
+import controlador.ControladorBotonConsulta;
 
 public class Marco_Aplicacion2 extends JFrame {
     public JComboBox<String> seccion;
     public JComboBox<String> pais;
-    JTextArea areaTexto;
+    public JTextArea areaTexto;
 
     public Marco_Aplicacion2() {
         setBounds(600, 400, 600, 700);
@@ -52,6 +53,7 @@ public class Marco_Aplicacion2 extends JFrame {
         // Botón consulta
         JButton btnConsulta = new JButton("Consulta");
         // btnConsulta.addActionListener(new OyenteBoton()); ******
+        btnConsulta.addActionListener(new ControladorBotonConsulta(this));
         add(btnConsulta, BorderLayout.SOUTH);
     }
 }
