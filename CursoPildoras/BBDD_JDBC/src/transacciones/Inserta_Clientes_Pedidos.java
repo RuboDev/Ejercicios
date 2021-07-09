@@ -6,7 +6,7 @@ public class Inserta_Clientes_Pedidos {
 	public static void main(String[] args) {
 		Connection miConexion = null;
 		try {
-			miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/prueba", "phpmyadmin", ".admin1234.");
+			miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/prueba", "root", "");
 			miConexion.setAutoCommit(false); // Seteamos en false para que los statements NO sean ejecutados y
 												// commiteados individualmente
 
