@@ -19,7 +19,7 @@ public class Transaccion_Productos {
             Statement miStatement = miConexion.createStatement();
 
             String instruccionSql_1 = "DELETE FROM PRODUCTOS WHERE PAÍSDEORIGEN='ITALIA'";
-            String instruccionSql_2 = "DELETE FROM PRODUCTOS WHERE PECIO>300";
+            String instruccionSql_2 = "DELETE FROM PRODUCTOS WHERE PRECIO>300";
             String instruccionSql_3 = "UPDATE PRODUCTOS SET PRECIO=PRECIO*1.15";
 
             boolean ejecutar = ejecutar_transaccion();
