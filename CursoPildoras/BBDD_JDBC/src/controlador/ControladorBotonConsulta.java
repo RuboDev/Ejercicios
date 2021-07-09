@@ -2,6 +2,7 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 
 import modelo.EjecutaConsultas;
 import vista.Marco_Aplicacion2;
@@ -19,7 +20,23 @@ public class ControladorBotonConsulta implements ActionListener {
         elmarco.areaTexto.setText("");
         String seleccionSeccion = (String) elmarco.seccion.getSelectedItem();
         String seleccionPais = (String) elmarco.pais.getSelectedItem();
-        elmarco.areaTexto.append(obj.filtraBBDD(seleccionSeccion, seleccionPais));
+
+        ResultSet rs = obj.filtraBBDD(seleccionSeccion, seleccionPais);
+        try {
+            while (rs.next()) {
+                elmarco.areaTexto.append(rs.getString(1));
+                elmarco.areaTexto.append(", ");
+                elmarco.areaTexto.append(rs.getString(2));
+                elmarco.areaTexto.append(", ");
+                elmarco.areaTexto.append(rs.getString(3));
+                elmarco.areaTexto.append("€, ");
+                elmarco.areaTexto.append(rs.getString(4));
+                elmarco.areaTexto.append("\n");
+            }
+        } catch (Exception e2) {
+            e2.printStackTrace();
+        }
+
     }
 
 }
