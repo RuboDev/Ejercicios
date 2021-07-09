@@ -12,7 +12,7 @@ import controlador.ControladorCargaMenus;
 
 public class Marco_Aplicacion2 extends JFrame {
     public JComboBox<String> seccion;
-    JComboBox<String> pais;
+    public JComboBox<String> pais;
     JTextArea areaTexto;
 
     public Marco_Aplicacion2() {

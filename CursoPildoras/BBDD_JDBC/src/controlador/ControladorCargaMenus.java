@@ -16,11 +16,21 @@ public class ControladorCargaMenus extends WindowAdapter {
 
     public void windowOpened(WindowEvent e) {
 
-        ResultSet rs = chargeSecciones.ejecutaConsultas();
+        ResultSet[] bothRS = chargeSecciones.ejecutaConsultas();
+
+        ResultSet rs1 = bothRS[0];
+        ResultSet rs2 = bothRS[1];
+
         try {
-            while (rs.next()) {
-                elmarco.seccion.addItem(rs.getString(1));
+            while (rs1.next()) {
+                elmarco.seccion.addItem(rs1.getString(1));
             }
+
+            while (rs2.next()) {
+                elmarco.pais.addItem(rs2.getString(1));
+            }
+            rs1.close();
+            rs2.close();
         } catch (Exception e2) {
             e2.printStackTrace();
         }
