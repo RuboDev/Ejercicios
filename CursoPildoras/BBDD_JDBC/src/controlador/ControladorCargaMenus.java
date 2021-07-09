@@ -3,14 +3,14 @@ package controlador;
 import java.awt.event.*;
 import java.sql.ResultSet;
 
-import modelo.CargaSecciones;
+import modelo.CargaMenus;
 import vista.Marco_Aplicacion2;
 
-public class ControladorCargaSecciones extends WindowAdapter {
-    CargaSecciones chargeSecciones = new CargaSecciones();
+public class ControladorCargaMenus extends WindowAdapter {
+    CargaMenus chargeSecciones = new CargaMenus();
     private Marco_Aplicacion2 elmarco;
 
-    public ControladorCargaSecciones(Marco_Aplicacion2 elmarco) {
+    public ControladorCargaMenus(Marco_Aplicacion2 elmarco) {
         this.elmarco = elmarco;
     }
 

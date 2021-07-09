@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import java.awt.BorderLayout;
 
-import controlador.ControladorCargaSecciones;
+import controlador.ControladorCargaMenus;
 
 public class Marco_Aplicacion2 extends JFrame {
     public JComboBox<String> seccion;
@@ -43,7 +43,7 @@ public class Marco_Aplicacion2 extends JFrame {
         add(menus, BorderLayout.NORTH);
 
         // cargarComboBoxes(); ******
-        addWindowListener(new ControladorCargaSecciones(this));
+        addWindowListener(new ControladorCargaMenus(this));
 
         // Text Area
         areaTexto = new JTextArea(4, 50);

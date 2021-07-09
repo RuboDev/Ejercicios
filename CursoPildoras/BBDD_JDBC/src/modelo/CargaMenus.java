@@ -4,11 +4,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class CargaSecciones {
+public class CargaMenus {
     private Conexion miConexion;
     public ResultSet rs;
 
-    public CargaSecciones() {
+    public CargaMenus() {
         miConexion = new Conexion();
     }
 
