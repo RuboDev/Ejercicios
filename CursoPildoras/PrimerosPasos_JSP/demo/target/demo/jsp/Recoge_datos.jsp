@@ -18,6 +18,7 @@
     String tecno=request.getParameter("tecnologias");
     
     Class.forName("com.mysql.cj.jdbc.Driver");
+    try{
     java.sql.Connection miConexion = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/proyecto_jsp", "phpmyadmin", ".admin1234.");
     java.sql.Statement miStatement = miConexion.createStatement();
 
@@ -25,6 +26,10 @@
 
     miStatement.executeUpdate(instruccionSQL);
     out.println("Registrado con éxito");
+    }catch(Exception e){
+        out.println("Ha ocurrido un error");
+        e.printStackTrace();
+    }
     %>
 
 </body>

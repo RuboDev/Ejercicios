@@ -18,13 +18,18 @@
     String tecno=request.getParameter("tecnologias");
     
     Class.forName("com.mysql.cj.jdbc.Driver");
-    java.sql.Connection miConexion = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/proyecto_jsp", "phpmyadmin", ".admin1234.");
+    try{
+    java.sql.Connection miConexion = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/proyecto_jsp", "phpmyadmin", "");
     java.sql.Statement miStatement = miConexion.createStatement();
 
     String instruccionSQL = "INSERT INTO usuarios (Nombre, Apellido, Usuario, Contrasena, Pais, Tecnologia) VALUES ('"+nombre+"', '"+apellido+"', '"+usuario+"', '"+contra+"', '"+pais+"', '"+tecno+"')";
 
     miStatement.executeUpdate(instruccionSQL);
     out.println("Registrado con éxito");
+    }catch(Exception e){
+        out.println("Ha ocurrido un error");
+        e.printStackTrace();
+    }
     %>
 
 </body>
