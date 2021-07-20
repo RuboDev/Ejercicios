@@ -1,7 +1,7 @@
-<!DOCTYPE html>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Agencia Viajes</title>
 </head>
 <body>
@@ -12,7 +12,7 @@ Selecciona tu ciudad de destino
 <select name="ciudad_favorita">
 
 	<option>Madrid</option>
-	<option>Par&iacute;s</option>	
+	<option>París</option>	
 	<option>Nueva York</option>	
 	<option>Sidney</option>
 
