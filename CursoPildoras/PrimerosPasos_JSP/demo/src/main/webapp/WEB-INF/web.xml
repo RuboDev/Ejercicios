@@ -4,7 +4,7 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
-
+<!--
   <servlet>
     <servlet-name>login-registro</servlet-name>
     <servlet-class>ourfirstlogin.servlets.RegistroServlet</servlet-class>
@@ -14,8 +14,8 @@
     <servlet-name>login-registro</servlet-name>
     <url-pattern>/servlets/Registro</url-pattern>
   </servlet-mapping>
-
+-->
   <welcome-file-list>  
-    <welcome-file>html/login.html</welcome-file>   
+    <welcome-file>jsp/Lista_Compra.jsp</welcome-file>   
   </welcome-file-list>  
 </web-app>
