@@ -16,6 +16,6 @@
   </servlet-mapping>
 -->
   <welcome-file-list>  
-    <welcome-file>jsp/Lista_Compra.jsp</welcome-file>   
+    <welcome-file>Formulario_envia_datos.jsp</welcome-file>   
   </welcome-file-list>  
 </web-app>
