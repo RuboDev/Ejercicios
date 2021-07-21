@@ -38,10 +38,10 @@
 <body>
 
     <table border="1">
-        <tr class="cabecera"><td>Nombre</td><td>Apellido</td><td>Puesto</td><td>Salario</td></tr>
+        <tr class="cabecera"><td>Nombre</td><td>Apellido</td><td>Puesto</td><td>Salario</td><td>Bonus</td></tr>
         <c:forEach items="${losEmpleados}" var="EmpTemp">
             <tr>
-            <td>${EmpTemp.getNombre()}</td> <td>${EmpTemp.getApellido()}</td> <td>${EmpTemp.getPuesto()}</td> <td>${EmpTemp.getSalario()}</td>
+            <td>${EmpTemp.getNombre()}</td> <td>${EmpTemp.getApellido()}</td> <td>${EmpTemp.getPuesto()}</td> <td>${EmpTemp.getSalario()}</td> <td><c:if test="${EmpTemp.getSalario()<40000}" >5000</c:if><c:if test="${EmpTemp.getSalario()>40000}" >----</c:if></td>
             </tr>
         </c:forEach>
     </table>
