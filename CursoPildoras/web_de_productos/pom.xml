@@ -26,6 +26,12 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>org.glassfish.web</groupId>
+      <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+      <version>1.2.6</version>
+  </dependency>
   </dependencies>
 
   <build>
