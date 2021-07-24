@@ -10,10 +10,6 @@
     <servlet-name>primer-servlet</servlet-name>
     <servlet-class>com.rubo.servletpruebas.PrimerServlet</servlet-class>
   </servlet>
-  <servlet-mapping>
-    <servlet-name>primer-servlet</servlet-name>
-    <url-pattern></url-pattern>
-  </servlet-mapping>
 
   <servlet>
     <servlet-name>servlet-registro</servlet-name>
@@ -22,5 +18,14 @@
   <servlet-mapping>
     <servlet-name>servlet-registro</servlet-name>
     <url-pattern>/RegistroUsuarios</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>controlador-servlet</servlet-name>
+    <servlet-class>com.rubo.servletpruebas.ControladorServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>controlador-servlet</servlet-name>
+    <url-pattern></url-pattern>
   </servlet-mapping>
 </web-app>
