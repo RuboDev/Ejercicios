@@ -32,6 +32,11 @@
         <td>PAÍSDEORIGEN</td>
     </tr>
     <c:forEach items="${lista_productos}" var="tempList">
+        <!-- Link para cada producto con su campo clave -->
+        <c:url var="linkTemp" value="ControladorProductos">
+            <c:param name="instruccion" value="modificar" />
+            <c:param name="cArticulo" value="${tempList.codArt}" />
+        </c:url>
         <tr>
             <td>
                 ${tempList.codArt}
@@ -54,7 +59,9 @@
             <td>
                 ${tempList.paisOrigen}
             </td>
-            <!-- rest of you columns data-->
+            <td>
+                <a href="${linkTemp}">Modificar</a>
+            </td>
         </tr>
     </c:forEach>
     </table>
