@@ -53,3 +53,8 @@ composer.lock
 # VScode files #
 ################
 .vscode
+
+# Maven files #
+###############
+.classpath
+target/
