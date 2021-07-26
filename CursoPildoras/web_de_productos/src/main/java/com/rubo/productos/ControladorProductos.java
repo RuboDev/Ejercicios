@@ -1,6 +1,8 @@
 package com.rubo.productos;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -39,6 +41,56 @@ public class ControladorProductos extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // Leer el parámetro del formulario
+        String elComando = req.getParameter("instruccion");
+
+        // si no se envia el parametro, listar productos
+        if (elComando == null)
+            elComando = "listar";
+
+        // Redirigir el flujo de ejecucion al metodo adecuado
+        switch (elComando) {
+            case "listar":
+                obtenerProductos(req, resp);
+                break;
+
+            case "insertarBBDD":
+                insertarProducto(req, resp);
+                break;
+            default:
+                obtenerProductos(req, resp);
+        }
+
+    }
+
+    private void insertarProducto(HttpServletRequest req, HttpServletResponse resp) {
+        // leer la info del producto que viene del formulario
+        String codArticulo = req.getParameter("codArt");
+        String seccion = req.getParameter("seccion");
+        String nombreArticulo = req.getParameter("nombreArt");
+
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        Date fecha = null;
+        try {
+            fecha = formatoFecha.parse(req.getParameter("fecha"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        double precio = Double.parseDouble(req.getParameter("precio"));
+        String importado = req.getParameter("importado");
+        String paisOrigen = req.getParameter("paisOrigen");
+
+        // Crear un objeto de tipo Producto
+        Productos nuevoProducto = new Productos(codArticulo, seccion, nombreArticulo, precio, fecha, importado, paisOrigen);
+
+        // Enviar el objeto al modelo y despues insertar el objeto Producto en la BBDD
+        modprod.agregarNuevoProducto(nuevoProducto);
+        // Volver al listado de Productos
+        obtenerProductos(req, resp);
+    }
+
+    private void obtenerProductos(HttpServletRequest req, HttpServletResponse resp) {
         // Obtener la lista de productos desde el modelo
         List<Productos> listaProductos;
 
