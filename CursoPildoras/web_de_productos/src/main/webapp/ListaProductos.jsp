@@ -7,6 +7,17 @@
     <meta http-equiv="Content-Type" content="text/html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <style>
+
+    table{
+        float:left;
+    }
+
+    #contenedorBoton{
+        margin-left: 1000px;
+    }
+    </style>
 </head>
 
 <body>
@@ -47,5 +58,9 @@
         </tr>
     </c:forEach>
     </table>
+
+    <div id="contenedorBoton">
+        <input type="button" value="Insertar Registro" onclick="window.location.href='inserta_producto.jsp'">
+    </div>
 </body>
 </html>
