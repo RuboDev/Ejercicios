@@ -95,7 +95,6 @@ public class ModeloProductos {
 
     public void setFields(Productos nuevoProducto) {
         String sql = "UPDATE PRODUCTOS SET SECCIÓN=?, NOMBREARTÍCULO=?, PRECIO=?, FECHA=?, IMPORTADO=?, PAÍSDEORIGEN=? WHERE CÓDIGOARTÍCULO=?";
-        Productos tempProduct = null;
 
         try {
             PreparedStatement prepUpdate = miConexion.prepareStatement(sql);
