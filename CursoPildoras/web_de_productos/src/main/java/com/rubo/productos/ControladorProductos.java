@@ -71,8 +71,8 @@ public class ControladorProductos extends HttpServlet {
     }
 
     private void updateProducto(HttpServletRequest req, HttpServletResponse resp) {
-        // leer la info del producto que viene del formulario
-        String codArticulo = req.getParameter("cArticulo");
+        // Leer la info del producto que viene del formulario de modificacion
+        String codArticulo = req.getParameter("cArticulo"); // <- Esta linea creo que hay que quitarla. Probable null
         String seccion = req.getParameter("seccion");
         String nombreArticulo = req.getParameter("nombreArt");
 
@@ -91,21 +91,22 @@ public class ControladorProductos extends HttpServlet {
         // Crear un objeto de tipo Producto
         Productos nuevoProducto = new Productos(codArticulo, seccion, nombreArticulo, precio, fecha, importado,
                 paisOrigen);
+        // Pasar el producto al modelo para que setee los campos modificados.
         modprod.setFields(nuevoProducto);
         // Volver al listado de Productos
         obtenerProductos(req, resp);
     }
 
     private void selectProducto(HttpServletRequest req, HttpServletResponse resp) {
-
+        // Leemos el parametro cArticulo
         String codArt = req.getParameter("cArticulo");
+        // Pasamos el valor de cArticulo como parametro al modelo
         Productos prodXcodArticulo = modprod.selectProductByCodigo(codArt);
-        // obtenerProductos(req, resp);
 
-        // Agregar producto al request
+        // El modelo nos devuelve un y lo agregamos a la request
         req.setAttribute("producto", prodXcodArticulo);
 
-        // Enviar ese request a la pagina JSP
+        // Enviar ese request a la pagina JSP en la que modificaremos los campos.
         try {
             RequestDispatcher miDispatcher = req.getRequestDispatcher("/modifica_producto.jsp");
             miDispatcher.forward(req, resp);
