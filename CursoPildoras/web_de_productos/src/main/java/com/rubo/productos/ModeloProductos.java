@@ -69,4 +69,51 @@ public class ModeloProductos {
             e.printStackTrace();
         }
     }
+
+    public Productos selectProductByCodigo(String codArt) {
+        String sql = "SELECT * FROM PRODUCTOS WHERE CÓDIGOARTÍCULO=?";
+        Productos tempProduct = null;
+
+        try {
+            PreparedStatement prepUpdate = miConexion.prepareStatement(sql);
+            prepUpdate.setString(1, codArt);
+
+            ResultSet rs = prepUpdate.executeQuery();
+
+            if (rs.next()) {
+                tempProduct = new Productos(codArt, rs.getString(2), rs.getString(3), rs.getDouble(4), rs.getDate(5),
+                        rs.getString(6), rs.getString(7));
+            }else{
+                throw new Exception("No se encontró ningún producto asociado al codigoArticulo: "+codArt);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return tempProduct;
+    }
+
+    public void setFields(Productos nuevoProducto) {
+        String sql = "UPDATE PRODUCTOS SET SECCIÓN=?, NOMBREARTÍCULO=?, PRECIO=?, FECHA=?, IMPORTADO=?, PAÍSDEORIGEN=? WHERE CÓDIGOARTÍCULO=?";
+        Productos tempProduct = null;
+
+        try {
+            PreparedStatement prepUpdate = miConexion.prepareStatement(sql);
+            prepUpdate.setString(7, nuevoProducto.getCodArt()); // parametro codigoarticulo
+
+            prepUpdate.setString(1, nuevoProducto.getSeccion());
+            prepUpdate.setString(2, nuevoProducto.getNombreArt());
+            prepUpdate.setDouble(3, nuevoProducto.getPrecio());
+
+            Date fechaConvertida = new Date(nuevoProducto.getFecha().getTime());
+            prepUpdate.setDate(4, fechaConvertida);
+        
+            prepUpdate.setString(5, nuevoProducto.getImportado());
+            prepUpdate.setString(6, nuevoProducto.getPaisOrigen());
+
+            prepUpdate.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

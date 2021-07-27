@@ -34,7 +34,7 @@
     <c:forEach items="${lista_productos}" var="tempList">
         <!-- Link para cada producto con su campo clave -->
         <c:url var="linkTemp" value="ControladorProductos">
-            <c:param name="instruccion" value="modificar" />
+            <c:param name="instruccion" value="seleccionar" />
             <c:param name="cArticulo" value="${tempList.codArt}" />
         </c:url>
         <tr>

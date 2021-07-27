@@ -57,8 +57,60 @@ public class ControladorProductos extends HttpServlet {
             case "insertarBBDD":
                 insertarProducto(req, resp);
                 break;
+
+            case "seleccionar":
+                selectProducto(req, resp);
+            
+            case "modificar":
+                updateProducto(req, resp);
+
             default:
                 obtenerProductos(req, resp);
+        }
+
+    }
+
+    private void updateProducto(HttpServletRequest req, HttpServletResponse resp) {
+        // leer la info del producto que viene del formulario
+        String codArticulo = req.getParameter("cArticulo");
+        String seccion = req.getParameter("seccion");
+        String nombreArticulo = req.getParameter("nombreArt");
+
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        Date fecha = null;
+        try {
+            fecha = formatoFecha.parse(req.getParameter("fecha"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        double precio = Double.parseDouble(req.getParameter("precio"));
+        String importado = req.getParameter("importado");
+        String paisOrigen = req.getParameter("paisOrigen");
+
+        // Crear un objeto de tipo Producto
+        Productos nuevoProducto = new Productos(codArticulo, seccion, nombreArticulo, precio, fecha, importado,
+                paisOrigen);
+        modprod.setFields(nuevoProducto);
+        // Volver al listado de Productos
+        obtenerProductos(req, resp);
+    }
+
+    private void selectProducto(HttpServletRequest req, HttpServletResponse resp) {
+
+        String codArt = req.getParameter("cArticulo");
+        Productos prodXcodArticulo = modprod.selectProductByCodigo(codArt);
+        // obtenerProductos(req, resp);
+
+        // Agregar producto al request
+        req.setAttribute("producto", prodXcodArticulo);
+
+        // Enviar ese request a la pagina JSP
+        try {
+            RequestDispatcher miDispatcher = req.getRequestDispatcher("/modifica_producto.jsp");
+            miDispatcher.forward(req, resp);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
@@ -82,7 +134,8 @@ public class ControladorProductos extends HttpServlet {
         String paisOrigen = req.getParameter("paisOrigen");
 
         // Crear un objeto de tipo Producto
-        Productos nuevoProducto = new Productos(codArticulo, seccion, nombreArticulo, precio, fecha, importado, paisOrigen);
+        Productos nuevoProducto = new Productos(codArticulo, seccion, nombreArticulo, precio, fecha, importado,
+                paisOrigen);
 
         // Enviar el objeto al modelo y despues insertar el objeto Producto en la BBDD
         modprod.agregarNuevoProducto(nuevoProducto);
