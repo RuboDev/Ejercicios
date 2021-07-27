@@ -11,6 +11,8 @@
     <h1 style="text-align:center">Modificar Registros ${producto.codArt}</h1>
     <form name="form1" action="ControladorProductos" method="GET">
     <input type="hidden" name="instruccion" value="modificar">
+    <input type="hidden" name="codeArticulo" value="${producto.codArt}">
+
         <table width="50%" border="0">
 
             <tr>
@@ -50,7 +52,7 @@
             </tr>
 
             <tr>
-                <td><input type="submit" name="envio" id="envio" value="Enviar"></td>
+                <td><input type="submit" name="envio" id="envio" value="Guardar Cambios"></td>
                 <td><input type="reset" name="borrar" id="borrar" value="Restablecer"></td>
             </tr>
         </table>
