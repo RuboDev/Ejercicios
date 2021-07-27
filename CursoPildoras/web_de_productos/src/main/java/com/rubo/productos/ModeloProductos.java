@@ -13,11 +13,17 @@ import javax.sql.DataSource;
 
 public class ModeloProductos {
     private DataSource fuenteDatos;
-    private Connection miConexion = null;
+    private Connection miConexion;
     private Statement miStatement = null;
 
     public ModeloProductos(DataSource fuenteDatos) {
         this.fuenteDatos = fuenteDatos;
+        try {
+            // Establecer conexión
+            this.miConexion = this.fuenteDatos.getConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Productos> getProductos() throws Exception {
@@ -25,9 +31,6 @@ public class ModeloProductos {
         ResultSet rs = null;
 
         try {
-            // Establecer conexión
-            miConexion = fuenteDatos.getConnection();
-
             // Crear sentencia SQL y Statement
             String instruccionSql = "SELECT * FROM PRODUCTOS";
             miStatement = miConexion.createStatement();
@@ -111,6 +114,18 @@ public class ModeloProductos {
             prepUpdate.setString(6, nuevoProducto.getPaisOrigen());
 
             prepUpdate.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteProductByCodigo(String codArt) {
+        String sql = "DELETE FROM PRODUCTOS WHERE CÓDIGOARTÍCULO=?";
+
+        try {
+            PreparedStatement prepDelete = miConexion.prepareStatement(sql);
+            prepDelete.setString(1, codArt);
+            prepDelete.execute();
         } catch (Exception e) {
             e.printStackTrace();
         }
