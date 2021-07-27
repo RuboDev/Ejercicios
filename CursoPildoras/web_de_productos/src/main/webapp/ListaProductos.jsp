@@ -37,6 +37,10 @@
             <c:param name="instruccion" value="seleccionar" />
             <c:param name="cArticulo" value="${tempList.codArt}" />
         </c:url>
+        <c:url var="linkDelete" value="ControladorProductos">
+            <c:param name="instruccion" value="eliminar" />
+            <c:param name="cArticulo" value="${tempList.codArt}" />
+        </c:url>
         <tr>
             <td>
                 ${tempList.codArt}
@@ -61,6 +65,9 @@
             </td>
             <td>
                 <a href="${linkTemp}">Modificar</a>
+            </td>
+            <td>
+                <a href="${linkDelete}">Eliminar</a>
             </td>
         </tr>
     </c:forEach>
