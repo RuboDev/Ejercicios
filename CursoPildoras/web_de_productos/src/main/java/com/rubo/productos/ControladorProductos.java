@@ -63,11 +63,24 @@ public class ControladorProductos extends HttpServlet {
             
             case "modificar":
                 updateProducto(req, resp);
+            
+            case "eliminar":
+                deleteProducto(req, resp);
 
             default:
                 obtenerProductos(req, resp);
         }
 
+    }
+
+    private void deleteProducto(HttpServletRequest req, HttpServletResponse resp) {
+        // Leemos el parametro cArticulo
+        String codArt = req.getParameter("cArticulo");
+        // Pasamos el valor de cArticulo como parametro al modelo
+        modprod.deleteProductByCodigo(codArt);
+
+        // Volver al listado de Productos
+        obtenerProductos(req, resp);
     }
 
     private void updateProducto(HttpServletRequest req, HttpServletResponse resp) {
