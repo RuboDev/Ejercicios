@@ -72,7 +72,7 @@ public class ControladorProductos extends HttpServlet {
 
     private void updateProducto(HttpServletRequest req, HttpServletResponse resp) {
         // Leer la info del producto que viene del formulario de modificacion
-        String codArticulo = req.getParameter("cArticulo"); // <- Esta linea creo que hay que quitarla. Probable null
+        String codArticulo = req.getParameter("codeArticulo");
         String seccion = req.getParameter("seccion");
         String nombreArticulo = req.getParameter("nombreArt");
 
