@@ -60,12 +60,15 @@ public class ControladorProductos extends HttpServlet {
 
             case "seleccionar":
                 selectProducto(req, resp);
-            
+                break;
+
             case "modificar":
                 updateProducto(req, resp);
-            
+                break;
+
             case "eliminar":
                 deleteProducto(req, resp);
+                break;
 
             default:
                 obtenerProductos(req, resp);
@@ -80,7 +83,12 @@ public class ControladorProductos extends HttpServlet {
         modprod.deleteProductByCodigo(codArt);
 
         // Volver al listado de Productos
-        obtenerProductos(req, resp);
+        //obtenerProductos(req, resp);
+        try {
+            resp.sendRedirect("");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void updateProducto(HttpServletRequest req, HttpServletResponse resp) {
