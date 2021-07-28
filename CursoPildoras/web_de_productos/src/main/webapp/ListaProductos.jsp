@@ -33,11 +33,11 @@
     </tr>
     <c:forEach items="${lista_productos}" var="tempList">
         <!-- Link para cada producto con su campo clave -->
-        <c:url var="linkTemp" value="ControladorProductos">
+        <c:url var="linkTemp" value="">
             <c:param name="instruccion" value="seleccionar" />
             <c:param name="cArticulo" value="${tempList.codArt}" />
         </c:url>
-        <c:url var="linkDelete" value="ControladorProductos">
+        <c:url var="linkDelete" value="">
             <c:param name="instruccion" value="eliminar" />
             <c:param name="cArticulo" value="${tempList.codArt}" />
         </c:url>
