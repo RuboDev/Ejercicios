@@ -9,7 +9,7 @@
 </head>
 <body>
     <h1 style="text-align:center">Modificar Registros ${producto.codArt}</h1>
-    <form name="form1" action="" method="GET">
+    <form name="form1" action="modificar" method="POST">
     <input type="hidden" name="instruccion" value="modificar">
     <input type="hidden" name="codeArticulo" value="${producto.codArt}">
 

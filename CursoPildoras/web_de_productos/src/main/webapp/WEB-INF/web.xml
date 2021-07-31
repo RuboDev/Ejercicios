@@ -6,8 +6,14 @@
      version="4.0">
   <display-name>Archetype Created Web Application</display-name>
   <welcome-file-list>
-    <welcome-file>ControladorProductos</welcome-file>
+    <welcome-file>lista</welcome-file>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
+
+  <session-config>
+    <!-- Disables URL-based sessions (no more 'jsessionid' in the URL using Tomcat) -->
+    <tracking-mode>COOKIE</tracking-mode>
+  </session-config>
+  
 </web-app>

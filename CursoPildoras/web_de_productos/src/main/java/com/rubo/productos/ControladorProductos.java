@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
-@WebServlet("/ControladorProductos")
+@WebServlet("/lista/*")
 public class ControladorProductos extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -44,6 +44,12 @@ public class ControladorProductos extends HttpServlet {
         // Leer el parámetro del formulario
         String elComando = req.getParameter("instruccion");
 
+        if (elComando == null && "/insertar".equals(req.getPathInfo())) {
+            elComando = "insertpanel";
+        }
+        // System.out.println(req.getContextPath());
+        // System.out.println(req.getPathInfo());
+
         // si no se envia el parametro, listar productos
         if (elComando == null)
             elComando = "listar";
@@ -54,16 +60,17 @@ public class ControladorProductos extends HttpServlet {
                 obtenerProductos(req, resp);
                 break;
 
-            case "insertarBBDD":
-                insertarProducto(req, resp);
+            case "insertpanel":
+                try {
+                    RequestDispatcher miDispatcher = req.getRequestDispatcher("/inserta_producto.jsp");
+                    miDispatcher.forward(req, resp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
 
             case "seleccionar":
                 selectProducto(req, resp);
-                break;
-
-            case "modificar":
-                updateProducto(req, resp);
                 break;
 
             case "eliminar":
@@ -83,9 +90,8 @@ public class ControladorProductos extends HttpServlet {
         modprod.deleteProductByCodigo(codArt);
 
         // Volver al listado de Productos
-        //obtenerProductos(req, resp);
         try {
-            resp.sendRedirect("");
+            resp.sendRedirect(req.getContextPath());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -115,7 +121,6 @@ public class ControladorProductos extends HttpServlet {
         // Pasar el producto al modelo para que setee los campos modificados.
         modprod.setFields(nuevoProducto);
         // Volver al listado de Productos
-        obtenerProductos(req, resp);
     }
 
     private void selectProducto(HttpServletRequest req, HttpServletResponse resp) {
@@ -162,7 +167,6 @@ public class ControladorProductos extends HttpServlet {
         // Enviar el objeto al modelo y despues insertar el objeto Producto en la BBDD
         modprod.agregarNuevoProducto(nuevoProducto);
         // Volver al listado de Productos
-        obtenerProductos(req, resp);
     }
 
     private void obtenerProductos(HttpServletRequest req, HttpServletResponse resp) {
@@ -185,6 +189,33 @@ public class ControladorProductos extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // Leer el parámetro del formulario
+        req.setCharacterEncoding("utf-8");
+        String elComando = req.getParameter("instruccion");
 
+        if ("/insertar".equals(req.getPathInfo())) {
+            elComando = "insertarBBDD";
+        }
+
+        // si no se envia el parametro, listar productos
+        if (elComando == null)
+            elComando = "listar";
+
+        // Redirigir el flujo de ejecucion al metodo adecuado
+        switch (elComando) {
+
+            case "insertarBBDD":
+                insertarProducto(req, resp);
+                break;
+
+            case "modificar":
+                updateProducto(req, resp);
+                break;
+        }
+        try {
+            resp.sendRedirect(req.getContextPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

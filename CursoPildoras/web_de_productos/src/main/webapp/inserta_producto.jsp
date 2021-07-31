@@ -9,8 +9,8 @@
 </head>
 <body>
     <h1 style="text-align:center">Insertar Registros</h1>
-    <form name="form1" action="ControladorProductos" method="GET">
-    <input type="hidden" name="instruccion" value="insertarBBDD">
+    <form name="form1" action="insertar" method="POST">
+
         <table width="50%" border="0">
             <tr>
                 <td width="27%">Código Artículo</td>

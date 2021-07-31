@@ -33,11 +33,11 @@
     </tr>
     <c:forEach items="${lista_productos}" var="tempList">
         <!-- Link para cada producto con su campo clave -->
-        <c:url var="linkTemp" value="">
+        <c:url var="linkTemp" value="/lista/modificar">
             <c:param name="instruccion" value="seleccionar" />
             <c:param name="cArticulo" value="${tempList.codArt}" />
         </c:url>
-        <c:url var="linkDelete" value="">
+        <c:url var="linkDelete" value="/lista/eliminar">
             <c:param name="instruccion" value="eliminar" />
             <c:param name="cArticulo" value="${tempList.codArt}" />
         </c:url>
@@ -74,7 +74,9 @@
     </table>
 
     <div id="contenedorBoton">
-        <input type="button" value="Insertar Registro" onclick="window.location.href='inserta_producto.jsp'">
+        <c:url var="linkInsert" value="/lista/insertar">
+        </c:url>
+        <a type="button" href="${linkInsert}">Insertar Registro</a>
     </div>
 </body>
 </html>
